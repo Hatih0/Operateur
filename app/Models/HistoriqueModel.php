@@ -154,6 +154,7 @@ class HistoriqueModel extends Model
 
         if ($isAutreOperateur) {
             $commission = $montant * 0.1;
+            $frais = 0;
         }
 
         return $this->insert([

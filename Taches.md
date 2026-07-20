@@ -2,24 +2,24 @@
 
 ## 1 - Configuration de base
 
-* [x] **Gestion des préfixes (CRUD)** — *Fitahiana*
+* [X] **Gestion des préfixes (CRUD)** — *Fitahiana*
 
-  * [x] Créer `PrefixeController`
-  * [x] Créer `PrefixeModel`
-  * [x] Créer les vues :
+  * [X] Créer `PrefixeController`
+  * [X] Créer `PrefixeModel`
+  * [X] Créer les vues :
 
     * `Prefixe/ajouter`
     * `Prefixe/modifier`
 
 ---
 
-* [x] **Gestion Type Opération et Configuration (CRUD)** — *Fitahiana*
+* [X] **Gestion Type Opération et Configuration (CRUD)** — *Fitahiana*
 
-  * [x] Créer `TypeOperationController`
-  * [x] Créer `TypeOperationModel`
-  * [x] Créer `ConfigurationController`
-  * [x] Créer `ConfigurationModel`
-  * [x] Créer les vues :
+  * [X] Créer `TypeOperationController`
+  * [X] Créer `TypeOperationModel`
+  * [X] Créer `ConfigurationController`
+  * [X] Créer `ConfigurationModel`
+  * [X] Créer les vues :
 
     * `TypeOperation/ajouter`
     * `TypeOperation/modifier`
@@ -48,7 +48,6 @@
 
     * [X] Fonction `getGainParType($id_type_operation, $date)`
     * [X] Fonction `getGainTotal($date)`
-
 * [X] **Affichage de la situation des gains**
 
   * [X] `TypeOperationController`
@@ -75,7 +74,6 @@
     * [X] Fonction `getAllClients()`
     * [X] Fonction `getClientById($id)`
     * [X] Fonction `getSituationClient($id)`
-
 * [X] **Affichage des comptes clients**
 
   * [X] Créer `ClientController`
@@ -102,7 +100,6 @@
   * [X] `ClientModel`
 
     * [X] Fonction `getHistoriqueClient($id)`
-
 * [X] **ClientController**
 
   * [X] Fonction `situation($id)`
@@ -110,7 +107,6 @@
     * [X] Récupérer les informations client
     * [X] Récupérer le solde
     * [X] Récupérer l'historique
-
 * [X] **Vue `client/situation.php`**
 
   * [X] Afficher le solde global
@@ -136,7 +132,6 @@
     * [X] Champ numéro destinataire pour transfert
     * [X] Champ caché `id_type_operation`
     * [X] Bouton validation
-
 * [X] **Gestion des transactions**
 
   * [X] Créer `HistoriqueModel`
@@ -152,15 +147,19 @@
 ## Inclusion des frais de transfert *Herman*
 
 ### situation.php
+
 - [X] Ajouter le choix : **Même opérateur** ou **Autre opérateur**
 
 ### formulaire.php
+
 - [X] Ajouter une checkbox : **Inclure les frais de transfert** (même opérateur uniquement)
 
 ### Controller
+
 - [X] Ajouter la fonction de traitement de l'option *inclure les frais*
 
 ### Métier
+
 - [X] Adapter le calcul du montant transféré avec ou sans prise en charge des frais
 
 ---
@@ -168,9 +167,11 @@
 ## Envoi multiple vers plusieurs numéros *Herman*
 
 ### situation.php
+
 - [X] Ajouter le bouton : **Envoyer à plusieurs numéros** (même opérateur uniquement)
 
 ### insertionMultiple.php
+
 - [X] Réutiliser les champs :
   - [X] montant
   - [X] code client
@@ -178,19 +179,36 @@
 - [X] Ajouter un formulaire + bouton JavaScript pour ajouter uniquement des numéros destinataires
 
 ### Métier
+
 - [X] Créer la fonction `calculerTransfert()`
 - [X] Créer la fonction `insertionMultiple()` pour retourner les informations utiles
 - [X] Implémenter l'opération multiple
 
 # Résumé des responsabilités
 
-| Partie                            | Responsable |
-| --------------------------------- | ----------- |
+| Partie                             | Responsable |
+| ---------------------------------- | ----------- |
 | Préfixe CRUD                      | Fitahiana   |
 | Type opération CRUD               | Fitahiana   |
-| Configuration CRUD                | Fitahiana   |
-| Login opérateur                   | Herman      |
+| Configuration CRUD                 | Fitahiana   |
+| Login opérateur                   | Fitahiana   |
 | Situation gains opérateur         | Herman      |
 | Gestion comptes clients opérateur | Herman      |
-| Consultation solde client         | Herman      |
-| Dépôt / retrait / transfert       | Herman      |
+| Consultation solde client          | Herman      |
+| Dépôt / retrait / transfert      | Herman      |
+
+
+## V2 - Coté Operateur
+
+- **Configuration des préfixes valable pour les autres opérateurs  **  Fitahiana
+  - ajout nouveau colonne dans la table prefix
+  - adapter le le crud avec la nouvelle table prefixe
+- **Configuration % en plus de commissions pour les transferts vers les autres opérateurs ** Fitahiana
+  - ajouter les logique de commission dans la table historique
+  - ajuster le calcul de solde client
+- **Sur la page “Situation gain via les différents frais” , séparer opérateur et autres opérateurs ** Fitahiana
+  - afficher une page pour les stats de mon operateur
+  - afficher une page pour d autre operateur
+- Situation des montants à envoyer à chaque opérateur
+  - afficher tout les operateur
+  - afficher les gains pour cette operateur
