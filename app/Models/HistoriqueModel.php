@@ -23,6 +23,23 @@ class HistoriqueModel extends Model
 
 
     /**
+     * Vérifie que le solde du client est suffisant pour couvrir le montant saisi.
+     * Règle métier : solde - montantSaisie >= 0
+     *
+     * @return bool true si l'opération est autorisée, false si le solde est insuffisant
+     */
+    public function soldeSuffisant($id_client, $montantsaisie)
+    {
+        $clientModel = new \App\Models\ClientModel();
+
+        $solde = $clientModel->getSoldeClient($id_client);
+
+        return ($solde - $montantsaisie) >= 0;
+    }
+
+
+
+    /**
      * Récupération des frais selon le montant
      */
     public function getFrais($id_type_operation, $montant)

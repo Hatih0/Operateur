@@ -69,7 +69,7 @@ class ClientModel extends Model
         $data = $this->db->table('historique')
             ->select("
                 SUM(
-                    CASE 
+                    CASE
                         WHEN type_operation.libelle = 'depot'
                         THEN montant
                         ELSE 0
@@ -77,7 +77,7 @@ class ClientModel extends Model
                 ) AS depot,
 
                 SUM(
-                    CASE 
+                    CASE
                         WHEN type_operation.libelle IN ('transfert','retrait')
                         THEN montant
                         ELSE 0
@@ -91,8 +91,30 @@ class ClientModel extends Model
             ->where('id_client', $id)
             ->get()
             ->getRowArray();
-        $data ['solde'] = $data['depot'] - $data['sortie'] ;
+
+        // Montants reçus en tant que destinataire d'un transfert
+        $recu = $this->db->table('historique')
+            ->selectSum('montant')
+            ->where('id_destinataire', $id)
+            ->get()
+            ->getRowArray();
+
+        $data['recu'] = $recu['montant'] ?? 0;
+
+        $data['solde'] = ($data['depot'] ?? 0) - ($data['sortie'] ?? 0) + $data['recu'];
+
         return $data ;
+    }
+
+    /**
+     * Retourne uniquement le solde actuel d'un client
+     * (dépôts - sorties (retraits/transferts envoyés) + transferts reçus)
+     */
+    public function getSoldeClient($id)
+    {
+        $situation = $this->getSituationClient($id);
+
+        return $situation['solde'] ?? 0;
     }
 
     public function getHistoriqueClient($id)

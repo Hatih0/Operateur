@@ -29,7 +29,7 @@
             <?php elseif (session()->get('ClientLoggedIn')) : ?>
 
                 <nav class="navbar-links">
-                    <a href="<?= base_url('client/situation/'.session()->get('client_id')) ?>" class="<?= str_starts_with($currentPath, 'client/situation') || str_starts_with($currentPath, 'client/formulaire') ? 'active' : '' ?>">Ma situation</a>
+                    <a href="<?= base_url('client/situation') ?>" class="<?= str_starts_with($currentPath, 'client/situation') || str_starts_with($currentPath, 'client/formulaire') ? 'active' : '' ?>">Ma situation</a>
                 </nav>
 
                 <a href="<?= base_url('logout') ?>" class="navbar-logout">Déconnexion</a>

@@ -52,7 +52,7 @@ class LoginController extends BaseController
 
             session()->set('client_id', $Client['id']);
             session()->set('ClientLoggedIn', true);
-            return redirect()->to('/client/situation/'.$Client['id'])->with('success', 'Connexion réussie.');
+            return redirect()->to('/client/situation')->with('success', 'Connexion réussie.');
 
         } else {
             return redirect()->back()->withInput()->with('error', 'Personne n a ce numero de telephone.');
@@ -69,7 +69,7 @@ class LoginController extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        
+
         $operateur = $this->operateurModel->CheckOperateur($username, $password);
 
         if ($operateur) {

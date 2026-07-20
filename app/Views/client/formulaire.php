@@ -15,7 +15,7 @@
             <input
                 type="number"
                 name="montant"
-                value="<?= $montant ?? '' ?>"
+                value="<?= old('montant', $montant ?? '') ?>"
                 required
             >
         </div>
@@ -26,7 +26,7 @@
             <input
                 type="text"
                 name="code"
-                value="<?= $client['code'] ?? '' ?>"
+                value="<?= old('code', $client['code'] ?? '') ?>"
                 required
             >
         </div>
@@ -37,7 +37,7 @@
             <input
                 type="text"
                 name="numero"
-                value="<?= $client['numero'] ?? '' ?>"
+                value="<?= old('numero', $client['numero'] ?? '') ?>"
                 required
             >
         </div>
@@ -50,7 +50,7 @@
                 <input
                     type="text"
                     name="numero_destinataire"
-                    value="<?= $destinataire['numero'] ?? '' ?>"
+                    value="<?= old('numero_destinataire', $destinataire['numero'] ?? '') ?>"
                     required
                 >
             </div>

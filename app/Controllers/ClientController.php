@@ -13,8 +13,10 @@ class ClientController extends BaseController
         return view('Client/index');
     }
 
-    public function situation($id)
+    public function situation()
     {
+        $id = session()->get('client_id');
+
         $clientModel = new ClientModel();
 
         $data = [
@@ -27,9 +29,11 @@ class ClientController extends BaseController
 
         return view('Client/situation', $data);
     }
-    
-    public function formulaire($id, $operation)
+
+    public function formulaire($operation)
     {
+        $id = session()->get('client_id');
+
         $clientModel = new ClientModel();
 
 
@@ -83,7 +87,7 @@ class ClientController extends BaseController
     public function operation()
     {
         $id_client = $this->request->getPost('id_client') ;
-        
+
         if (empty($id_client)) {
             $clientModel = new ClientModel () ;
             $id_client = $clientModel->getIdClientByNumero($this->request->getPost('numero'));
@@ -111,6 +115,12 @@ class ClientController extends BaseController
             // Retrait
             case 2:
 
+                if (!$historiqueModel->soldeSuffisant($id_client, $montant)) {
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'Solde insuffisant pour effectuer ce retrait.');
+                }
+
                 $historiqueModel->retrait(
                     $id_client,
                     $montant,
@@ -135,7 +145,15 @@ class ClientController extends BaseController
 
                 if (!$destinataire) {
                     return redirect()->back()
+                        ->withInput()
                         ->with('error', 'Destinataire introuvable');
+                }
+
+
+                if (!$historiqueModel->soldeSuffisant($id_client, $montant)) {
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'Solde insuffisant pour effectuer ce transfert.');
                 }
 
 
@@ -157,7 +175,7 @@ class ClientController extends BaseController
 
 
         return redirect()
-            ->to('/client/situation/'.$id_client)
+            ->to('/client/situation')
             ->with('success', 'Opération effectuée');
     }
 }

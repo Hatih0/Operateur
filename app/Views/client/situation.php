@@ -29,15 +29,15 @@
     <h2>Actions</h2>
 
     <div class="actions">
-        <a class="btn" href="<?= base_url('client/formulaire/'.$informations['id'].'/depot') ?>">
+        <a class="btn" href="<?= base_url('client/formulaire/depot') ?>">
             Faire un dépôt
         </a>
 
-        <a class="btn" href="<?= base_url('client/formulaire/'.$informations['id'].'/retrait') ?>">
+        <a class="btn" href="<?= base_url('client/formulaire/retrait') ?>">
             Faire un retrait
         </a>
 
-        <a class="btn" href="<?= base_url('client/formulaire/'.$informations['id'].'/transfert') ?>">
+        <a class="btn" href="<?= base_url('client/formulaire/transfert') ?>">
             Transférer argent
         </a>
     </div>

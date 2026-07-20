@@ -41,8 +41,8 @@ $routes->get('/operateur/gain', 'OperateurController::getSituationGain' , ['filt
 $routes->get('/operateur/clients', 'OperateurController::getAllClients' , ['filter' => 'authOperateur']);
 $routes->get('/operateur/situationClient/(:num)', 'OperateurController::situationClient/$1', ['filter' => 'authOperateur']);
 
-$routes->get('/client/situation/(:num)', 'ClientController::situation/$1', ['filter' => 'authClient']);
-$routes->get('client/formulaire/(:num)/depot','ClientController::formulaire/$1/depot', ['filter' => 'authClient']);
-$routes->get('client/formulaire/(:num)/retrait','ClientController::formulaire/$1/retrait', ['filter' => 'authClient']);
-$routes->get('client/formulaire/(:num)/transfert','ClientController::formulaire/$1/transfert', ['filter' => 'authClient']);
+$routes->get('/client/situation', 'ClientController::situation', ['filter' => 'authClient']);
+$routes->get('client/formulaire/depot','ClientController::formulaire/depot', ['filter' => 'authClient']);
+$routes->get('client/formulaire/retrait','ClientController::formulaire/retrait', ['filter' => 'authClient']);
+$routes->get('client/formulaire/transfert','ClientController::formulaire/transfert', ['filter' => 'authClient']);
 $routes->post('client/operation','ClientController::operation', ['filter' => 'authClient']);
