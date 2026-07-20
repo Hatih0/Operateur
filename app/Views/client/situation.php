@@ -40,6 +40,10 @@
         <a class="btn" href="<?= base_url('client/formulaire/transfert') ?>">
             Transférer argent
         </a>
+
+        <a class="btn" href="<?= base_url('client/insertionmultiple') ?>">
+            Insertion multiple (même opérateur)
+        </a>
     </div>
 </div>
 
