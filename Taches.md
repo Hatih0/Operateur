@@ -149,6 +149,39 @@
 
 ---
 
+## Inclusion des frais de transfert *Herman*
+
+### situation.php
+- [X] Ajouter le choix : **Même opérateur** ou **Autre opérateur**
+
+### formulaire.php
+- [X] Ajouter une checkbox : **Inclure les frais de transfert** (même opérateur uniquement)
+
+### Controller
+- [X] Ajouter la fonction de traitement de l'option *inclure les frais*
+
+### Métier
+- [X] Adapter le calcul du montant transféré avec ou sans prise en charge des frais
+
+---
+
+## Envoi multiple vers plusieurs numéros *Herman*
+
+### situation.php
+- [X] Ajouter le bouton : **Envoyer à plusieurs numéros** (même opérateur uniquement)
+
+### insertionMultiple.php
+- [X] Réutiliser les champs :
+  - [X] montant
+  - [X] code client
+  - [X] numéro client
+- [X] Ajouter un formulaire + bouton JavaScript pour ajouter uniquement des numéros destinataires
+
+### Métier
+- [X] Créer la fonction `calculerTransfert()`
+- [X] Créer la fonction `insertionMultiple()` pour retourner les informations utiles
+- [X] Implémenter l'opération multiple
+
 # Résumé des responsabilités
 
 | Partie                            | Responsable |
