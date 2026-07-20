@@ -224,7 +224,7 @@ class ClientController extends BaseController
                 $inclureFraisRetraitEffectif = $meme_operateur && $inclure_frais_retrait;
 
                 $calcul = $historiqueModel->calculerTransfert(
-                    $montant,1
+                    $montant,
                     $fraisTransfert,
                     $fraisRetraitDestinataire,
                     $inclureFraisRetraitEffectif

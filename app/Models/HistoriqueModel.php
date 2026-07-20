@@ -149,16 +149,10 @@ class HistoriqueModel extends Model
     public function transfert(
         $id_client,
         $id_destinataire,
-<<<<<<< HEAD
         $montant,
         $frais,
         $commission,
         $id_type_operation
-=======
-        $montantsaisie,
-        $id_type_operation,
-        $isAutreOperateur
->>>>>>> 1c428d50af3f31c4a0815e6dcc2c28fea6554f73
     )
     {
 
