@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ClientModel;
+use App\Models\ConfigurationModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -84,6 +85,37 @@ class ClientController extends BaseController
         return view('Client/formulaire', $data);
     }
 
+    /**
+     * Renvoie en JSON la configuration (frais) correspondant
+     * au type d'opération et au montant saisi par le client.
+     */
+    public function getFrais()
+    {
+        $id_type_operation = $this->request->getGet('id_type_operation');
+        $montant = $this->request->getGet('montant');
+
+        if ($id_type_operation === null || $montant === null || $montant === '') {
+            return $this->response->setJSON(['found' => false]);
+        }
+
+        $configurationModel = new ConfigurationModel();
+
+        $configuration = $configurationModel
+            ->where('id_type_operation', $id_type_operation)
+            ->where('min <=', $montant)
+            ->where('max >=', $montant)
+            ->first();
+
+        if (!$configuration) {
+            return $this->response->setJSON(['found' => false]);
+        }
+
+        return $this->response->setJSON([
+            'found' => true,
+            'montant' => $configuration['montant'],
+        ]);
+    }
+
     public function operation()
     {
         $id_client = $this->request->getPost('id_client') ;
@@ -159,6 +191,12 @@ class ClientController extends BaseController
 
                 $historiqueModel->transfert(
                     $id_client,
+                    $destinataire['id'],
+                    $montant,
+                    $id_type_operation
+                );
+
+                $historiqueModel->recus(
                     $destinataire['id'],
                     $montant,
                     $id_type_operation

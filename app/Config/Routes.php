@@ -45,4 +45,5 @@ $routes->get('/client/situation', 'ClientController::situation', ['filter' => 'a
 $routes->get('client/formulaire/depot','ClientController::formulaire/depot', ['filter' => 'authClient']);
 $routes->get('client/formulaire/retrait','ClientController::formulaire/retrait', ['filter' => 'authClient']);
 $routes->get('client/formulaire/transfert','ClientController::formulaire/transfert', ['filter' => 'authClient']);
+$routes->get('client/frais', 'ClientController::getFrais', ['filter' => 'authClient']);
 $routes->post('client/operation','ClientController::operation', ['filter' => 'authClient']);

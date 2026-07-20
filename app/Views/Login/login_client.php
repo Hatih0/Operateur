@@ -4,21 +4,26 @@
 
 <?= $this->section('content') ?>
 
-<div class="card">
-    <h1>Connexion Client</h1>
+<div class="auth-wrapper">
+    <div class="card auth-card">
+        <div class="auth-icon">📱</div>
 
-    <form action="/login" method="post">
-        <div class="form-group">
-            <label for="Numero">Numéro :</label>
-            <input type="text" name="Numero" id="Numero" value="<?= isset($FirstClient['numero']) ? $FirstClient['numero'] : '' ?>" required>
-        </div>
+        <h1>Connexion Client</h1>
+        <p class="auth-subtitle">Entrez votre numéro pour accéder à votre compte</p>
 
-        <button type="submit">Se connecter</button>
-    </form>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="Numero">Numéro</label>
+                <input type="text" name="Numero" id="Numero" placeholder="Votre numéro de téléphone" value="<?= isset($FirstClient['numero']) ? $FirstClient['numero'] : '' ?>" required>
+            </div>
 
-    <p style="margin-top: 20px;">
-        <a href="/login_operateur">Se connecter en tant qu'opérateur</a>
-    </p>
+            <button type="submit">Se connecter</button>
+        </form>
+
+        <p class="auth-switch">
+            Vous êtes opérateur ? <a href="/login_operateur">Connectez-vous ici</a>
+        </p>
+    </div>
 </div>
 
 <?= $this->endSection() ?>

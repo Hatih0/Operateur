@@ -4,9 +4,7 @@
 
 <?= $this->section('content') ?>
 
-<div class="nav-links">
-    <a class="nav-link" href="/liste_configuration">&larr; Liste des configurations</a>
-</div>
+<a class="back-link" href="/liste_configuration">&larr; Retour à la liste des configurations</a>
 
 <div class="card">
     <h1>Ajouter une configuration</h1>

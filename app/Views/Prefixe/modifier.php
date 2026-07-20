@@ -4,9 +4,7 @@
 
 <?= $this->section('content') ?>
 
-<div class="nav-links">
-    <a class="nav-link" href="/liste_prefixe">&larr; Liste des préfixes</a>
-</div>
+<a class="back-link" href="/liste_prefixe">&larr; Retour à la liste des préfixes</a>
 
 <div class="card">
     <h1>Modifier un préfixe</h1>

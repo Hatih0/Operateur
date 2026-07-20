@@ -85,7 +85,24 @@ class HistoriqueModel extends Model
         ]);
     }
 
+        /**
+     * recus
+     */
 
+    public function recus($id_client, $montantsaisie, $id_type_operation){
+
+        $frais = 0;
+        $depot_id = 1;
+
+        return $this->insert([
+            'id_client' => $id_client,
+            'id_destinataire' => null,
+            'id_type_operation' => $depot_id,
+            'montant' => $montantsaisie,
+            'frais' => $frais
+        ]);
+
+    }
 
     /**
      * Retrait

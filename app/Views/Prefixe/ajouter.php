@@ -4,6 +4,8 @@
 
 <?= $this->section('content') ?>
 
+<a class="back-link" href="/liste_prefixe">&larr; Retour à la liste des préfixes</a>
+
 <div class="card">
     <h1>Ajouter un préfixe</h1>
 

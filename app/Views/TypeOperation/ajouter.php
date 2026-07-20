@@ -4,9 +4,7 @@
 
 <?= $this->section('content') ?>
 
-<div class="nav-links">
-    <a class="nav-link" href="/liste_type_operation">&larr; Liste des types d'opération</a>
-</div>
+<a class="back-link" href="/liste_type_operation">&larr; Retour à la liste des types d'opération</a>
 
 <div class="card">
     <h1>Ajouter un type d'opération</h1>
