@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <h1> Login Operateur </h1>
+<?= $this->extend('templates/layout') ?>
+
+<?= $this->section('title') ?>Connexion Opérateur<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
+<div class="card">
+    <h1>Connexion Opérateur</h1>
 
     <form action="/checkOperateur" method="post">
-        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-        <input type="password" name="password" placeholder="Mot de passe" required>
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" name="username" id="username" value="<?= isset($FirstOperateur['nom']) ? $FirstOperateur['nom'] : '' ?>" placeholder="Nom d'utilisateur" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" value="<?= isset($FirstOperateur['password']) ? $FirstOperateur['password'] : '' ?>" placeholder="Mot de passe" required>
+        </div>
 
         <button type="submit">Se connecter</button>
     </form>
+</div>
 
-</body>
-</html>
+<?= $this->endSection() ?>

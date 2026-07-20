@@ -13,6 +13,7 @@ $routes->post('/checkOperateur', 'LoginController::checkOperateur');
 $routes->get('/login_client', 'LoginController::index');
 $routes->post('/login', 'LoginController::checkClient');
 $routes->get('/ClientHome', 'ClientController::index');
+$routes->get('/logout', 'LoginController::logout');
 
 $routes->get('/ajouter_prefixe', 'PrefixeController::create' , ['filter' => 'authOperateur']);
 $routes->post('/ajouter_prefixe', 'PrefixeController::store' , ['filter' => 'authOperateur']);
@@ -36,13 +37,12 @@ $routes->get('/modifier_type_operation/(:num)', 'TypeOperationController::edit/$
 $routes->post('/modifier_type_operation/(:num)', 'TypeOperationController::update/$1', ['filter' => 'authOperateur']);
 $routes->get('/supprimer_type_operation/(:num)', 'TypeOperationController::delete/$1', ['filter' => 'authOperateur']);
 
-$routes->get('/', 'Home::index');
+$routes->get('/operateur/gain', 'OperateurController::getSituationGain' , ['filter' => 'authOperateur']);
+$routes->get('/operateur/clients', 'OperateurController::getAllClients' , ['filter' => 'authOperateur']);
+$routes->get('/operateur/situationClient/(:num)', 'OperateurController::situationClient/$1', ['filter' => 'authOperateur']);
 
-$routes->get('/operateur/gain', 'OperateurController::getSituationGain');
-$routes->get('/operateur/clients', 'OperateurController::getAllClients');
-$routes->get('/operateur/situationClient/(:num)', 'OperateurController::situationClient/$1');
-$routes->get('/client/situation/(:num)', 'ClientController::situation/$1');
-$routes->get('client/formulaire/(:num)/depot','ClientController::formulaire/$1/depot');
-$routes->get('client/formulaire/(:num)/retrait','ClientController::formulaire/$1/retrait');
-$routes->get('client/formulaire/(:num)/transfert','ClientController::formulaire/$1/transfert');
-$routes->post('client/operation','ClientController::operation');
+$routes->get('/client/situation/(:num)', 'ClientController::situation/$1', ['filter' => 'authClient']);
+$routes->get('client/formulaire/(:num)/depot','ClientController::formulaire/$1/depot', ['filter' => 'authClient']);
+$routes->get('client/formulaire/(:num)/retrait','ClientController::formulaire/$1/retrait', ['filter' => 'authClient']);
+$routes->get('client/formulaire/(:num)/transfert','ClientController::formulaire/$1/transfert', ['filter' => 'authClient']);
+$routes->post('client/operation','ClientController::operation', ['filter' => 'authClient']);

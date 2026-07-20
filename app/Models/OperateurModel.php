@@ -50,4 +50,9 @@ class OperateurModel extends Model
 
     }
 
+    public function FirstOperateur()
+    {
+        return $this->orderBy('id', 'ASC')->first();
+    }
+
 }

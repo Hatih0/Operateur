@@ -1,73 +1,73 @@
-<h2>Informations client</h2>
+<?= $this->extend('templates/layout') ?>
 
-Nom : <?= $informations['nom'] ?><br>
-Code : <?= $informations['code'] ?><br>
-Numéro : <?= $informations['numero'] ?>
+<?= $this->section('title') ?>Ma situation<?= $this->endSection() ?>
 
+<?= $this->section('content') ?>
 
-<hr>
+<div class="card">
+    <h2>Informations client</h2>
 
+    <div class="info-list">
+        <p><strong>Nom :</strong> <?= $informations['nom'] ?></p>
+        <p><strong>Code :</strong> <?= $informations['code'] ?></p>
+        <p><strong>Numéro :</strong> <?= $informations['numero'] ?></p>
+    </div>
+</div>
 
-<h2>Solde</h2>
+<div class="card">
+    <h2>Solde</h2>
 
-Solde actuel :
-<?= $situation['solde'] ?> Ar
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Solde actuel</div>
+            <div class="stat-value"><?= $situation['solde'] ?> Ar</div>
+        </div>
+    </div>
+</div>
 
+<div class="card">
+    <h2>Actions</h2>
 
-<hr>
+    <div class="actions">
+        <a class="btn" href="<?= base_url('client/formulaire/'.$informations['id'].'/depot') ?>">
+            Faire un dépôt
+        </a>
 
+        <a class="btn" href="<?= base_url('client/formulaire/'.$informations['id'].'/retrait') ?>">
+            Faire un retrait
+        </a>
 
-<h2>Actions</h2>
+        <a class="btn" href="<?= base_url('client/formulaire/'.$informations['id'].'/transfert') ?>">
+            Transférer argent
+        </a>
+    </div>
+</div>
 
-<a href="<?= base_url('client/formulaire/'.$informations['id'].'/depot') ?>">
-    <button>
-        Faire un dépôt
-    </button>
-</a>
+<div class="card">
+    <h2>Historique des transactions</h2>
 
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Montant</th>
+                    <th>Frais</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($historique as $h): ?>
+                    <tr>
+                        <td><?= $h['date'] ?></td>
+                        <td><?= $h['type_operation'] ?></td>
+                        <td><?= $h['montant'] ?> Ar</td>
+                        <td><?= $h['frais'] ?> Ar</td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<a href="<?= base_url('client/formulaire/'.$informations['id'].'/retrait') ?>">
-    <button>
-        Faire un retrait
-    </button>
-</a>
-
-
-<a href="<?= base_url('client/formulaire/'.$informations['id'].'/transfert') ?>">
-    <button>
-        Transférer argent
-    </button>
-</a>
-
-
-<hr>
-
-
-<h2>Historique des transactions</h2>
-
-<table border="1">
-
-<tr>
-    <th>Date</th>
-    <th>Type</th>
-    <th>Montant</th>
-    <th>Frais</th>
-</tr>
-
-
-<?php foreach($historique as $h): ?>
-
-<tr>
-    <td><?= $h['date'] ?></td>
-
-    <td><?= $h['type_operation'] ?></td>
-
-    <td><?= $h['montant'] ?> Ar</td>
-
-    <td><?= $h['frais'] ?> Ar</td>
-</tr>
-
-<?php endforeach; ?>
-
-
-</table>
+<?= $this->endSection() ?>

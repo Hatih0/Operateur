@@ -1,86 +1,72 @@
-<h2>Effectuer une opération</h2>
+<?= $this->extend('templates/layout') ?>
 
-<form method="post" action="<?= base_url('client/operation') ?>">
+<?= $this->section('title') ?>Effectuer une opération<?= $this->endSection() ?>
 
-    <!-- Montant -->
-    <label>
-        Montant :
-    </label>
+<?= $this->section('content') ?>
 
-    <input 
-        type="number" 
-        name="montant"
-        value="<?= $montant ?? '' ?>"
-        required
-    >
+<div class="card">
+    <h2>Effectuer une opération</h2>
 
+    <form method="post" action="<?= base_url('client/operation') ?>">
 
-    <br><br>
+        <!-- Montant -->
+        <div class="form-group">
+            <label>Montant :</label>
+            <input
+                type="number"
+                name="montant"
+                value="<?= $montant ?? '' ?>"
+                required
+            >
+        </div>
 
+        <!-- Code client -->
+        <div class="form-group">
+            <label>Code client :</label>
+            <input
+                type="text"
+                name="code"
+                value="<?= $client['code'] ?? '' ?>"
+                required
+            >
+        </div>
 
-    <!-- Code client -->
-    <label>
-        Code client :
-    </label>
+        <!-- Numéro client -->
+        <div class="form-group">
+            <label>Numéro client :</label>
+            <input
+                type="text"
+                name="numero"
+                value="<?= $client['numero'] ?? '' ?>"
+                required
+            >
+        </div>
 
-    <input 
-        type="text" 
-        name="code"
-        value="<?= $client['code'] ?? '' ?>"
-        required
-    >
+        <?php if ($transfert == true): ?>
 
+            <!-- Numéro destinataire uniquement pour transfert -->
+            <div class="form-group">
+                <label>Numéro destinataire :</label>
+                <input
+                    type="text"
+                    name="numero_destinataire"
+                    value="<?= $destinataire['numero'] ?? '' ?>"
+                    required
+                >
+            </div>
 
-    <br><br>
+        <?php endif; ?>
 
-
-    <!-- Numéro client -->
-    <label>
-        Numéro client :
-    </label>
-
-    <input 
-        type="text" 
-        name="numero"
-        value="<?= $client['numero'] ?? '' ?>"
-        required
-    >
-
-
-    <br><br>
-
-
-    <?php if ($transfert == true): ?>
-
-        <!-- Numéro destinataire uniquement pour transfert -->
-
-        <label>
-            Numéro destinataire :
-        </label>
-
-        <input 
-            type="text"
-            name="numero_destinataire"
-            value="<?= $destinataire['numero'] ?? '' ?>"
-            required
+        <!-- Type opération caché -->
+        <input
+            type="hidden"
+            name="id_type_operation"
+            value="<?= $id_type_operation ?>"
         >
 
-        <br><br>
+        <button type="submit">Valider</button>
 
-    <?php endif; ?>
+    </form>
+</div>
 
-
-    <!-- Type opération caché -->
-
-    <input 
-        type="hidden"
-        name="id_type_operation"
-        value="<?= $id_type_operation ?>"
-    >
-
-
-    <button type="submit">
-        Valider
-    </button>
-
-</form>x
+<?= $this->endSection() ?>

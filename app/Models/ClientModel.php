@@ -126,4 +126,10 @@ class ClientModel extends Model
 
         return $client['id'];
     }
+
+    public function FirstClient()
+    {
+        return $this->orderBy('id', 'ASC')->first();
+    }
+
 }

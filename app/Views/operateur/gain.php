@@ -1,14 +1,34 @@
-<h3>Total gain : <?= $totalGain ?></h3>
+<?= $this->extend('templates/layout') ?>
 
-<h3>Nombre total opérations : <?= $totalOperation ?></h3>
+<?= $this->section('title') ?>Situation des gains<?= $this->endSection() ?>
 
+<?= $this->section('content') ?>
 
-<?php foreach($situation as $type => $val): ?>
+<div class="card">
+    <h1>Situation des gains</h1>
 
-    <h4><?= $type ?></h4>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Total gain</div>
+            <div class="stat-value"><?= $totalGain ?></div>
+        </div>
 
-    Nombre : <?= $val['nombre'] ?><br>
+        <div class="stat-card">
+            <div class="stat-label">Nombre total d'opérations</div>
+            <div class="stat-value"><?= $totalOperation ?></div>
+        </div>
+    </div>
 
-    Gain : <?= $val['gain'] ?><br>
+    <?php foreach($situation as $type => $val): ?>
 
-<?php endforeach ?>
+        <h4><span class="badge"><?= $type ?></span></h4>
+
+        <div class="info-list">
+            <p>Nombre : <strong><?= $val['nombre'] ?></strong></p>
+            <p>Gain : <strong><?= $val['gain'] ?></strong></p>
+        </div>
+
+    <?php endforeach ?>
+</div>
+
+<?= $this->endSection() ?>

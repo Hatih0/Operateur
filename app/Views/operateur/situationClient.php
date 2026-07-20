@@ -1,94 +1,61 @@
-<h2>Situation du compte client</h2>
+<?= $this->extend('templates/layout') ?>
 
-<hr>
+<?= $this->section('title') ?>Situation du compte client<?= $this->endSection() ?>
 
-<h3>Informations client</h3>
+<?= $this->section('content') ?>
 
-<p>
-    Nom :
-    <?= $client['nom'] ?>
-</p>
+<div class="card">
+    <h2>Informations client</h2>
 
-<p>
-    Code :
-    <?= $client['code'] ?>
-</p>
+    <div class="info-list">
+        <p><strong>Nom :</strong> <?= $client['nom'] ?></p>
+        <p><strong>Code :</strong> <?= $client['code'] ?></p>
+        <p><strong>Numéro :</strong> <?= $client['numero'] ?></p>
+    </div>
+</div>
 
-<p>
-    Numéro :
-    <?= $client['numero'] ?>
-</p>
+<div class="card">
+    <h3>Solde du compte</h3>
 
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Solde actuel</div>
+            <div class="stat-value"><?= $situation['solde'] ?? 0 ?> Ar</div>
+        </div>
+    </div>
+</div>
 
-<hr>
+<div class="card">
+    <h3>Historique des transactions</h3>
 
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type opération</th>
+                    <th>Montant</th>
+                    <th>Frais</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($historique)): ?>
+                    <?php foreach ($historique as $transaction): ?>
+                        <tr>
+                            <td><?= $transaction['date'] ?></td>
+                            <td><?= $transaction['type_operation'] ?></td>
+                            <td><?= $transaction['montant'] ?> Ar</td>
+                            <td><?= $transaction['frais'] ?> Ar</td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="4">Aucun historique disponible</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<h3>Solde du compte</h3>
-
-<p>
-    Solde actuel :
-    <strong>
-        <?= $situation['solde'] ?? 0 ?> Ar
-    </strong>
-</p>
-
-
-<hr>
-
-
-<h3>Historique des transactions</h3>
-
-<table border="1" cellpadding="8" cellspacing="0">
-
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Type opération</th>
-            <th>Montant</th>
-            <th>Frais</th>
-        </tr>
-    </thead>
-
-
-    <tbody>
-
-    <?php if (!empty($historique)): ?>
-
-        <?php foreach ($historique as $transaction): ?>
-
-            <tr>
-
-                <td>
-                    <?= $transaction['date'] ?>
-                </td>
-
-                <td>
-                    <?= $transaction['type_operation'] ?>
-                </td>
-
-                <td>
-                    <?= $transaction['montant'] ?> Ar
-                </td>
-
-                <td>
-                    <?= $transaction['frais'] ?> Ar
-                </td>
-
-            </tr>
-
-        <?php endforeach; ?>
-
-
-    <?php else: ?>
-
-        <tr>
-            <td colspan="4">
-                Aucun historique disponible
-            </td>
-        </tr>
-
-    <?php endif; ?>
-
-    </tbody>
-
-</table>
+<?= $this->endSection() ?>

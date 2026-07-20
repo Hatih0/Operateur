@@ -1,21 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <a href="/liste_type_operation"> liste type operation </a>
-    <h1> ajouter Type operation </h1>
+<?= $this->extend('templates/layout') ?>
+
+<?= $this->section('title') ?>Ajouter un type d'opération<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
+<div class="nav-links">
+    <a class="nav-link" href="/liste_type_operation">&larr; Liste des types d'opération</a>
+</div>
+
+<div class="card">
+    <h1>Ajouter un type d'opération</h1>
 
     <form action="/ajouter_type_operation" method="post">
-        <label for="libelle">Libellé:</label>
-        <input type="text" name="libelle" id="libelle" required>
-        <br><br>
-        <input type="submit" value="Ajouter">
-    </form>
+        <div class="form-group">
+            <label for="libelle">Libellé</label>
+            <input type="text" name="libelle" id="libelle" required>
+        </div>
 
-</body>
-</html>
+        <button type="submit">Ajouter</button>
+    </form>
+</div>
+
+<?= $this->endSection() ?>
