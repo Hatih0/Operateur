@@ -37,6 +37,7 @@ CREATE TABLE historique (
     FOREIGN KEY (id_client) REFERENCES client(id),
     FOREIGN KEY (id_type_operation) REFERENCES type_operation(id)
 );
+ALTER TABLE historique ADD COLUMN id_destinataire INTEGER DEFAULT NULL ;
 
 CREATE Table prefixe (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

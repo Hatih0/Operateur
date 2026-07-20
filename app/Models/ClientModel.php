@@ -83,4 +83,16 @@ class ClientModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    public function getIdClientByNumero($numero)
+    {
+        $client = $this->where('numero', $numero)
+                    ->first();
+
+        if (!$client) {
+            return null;
+        }
+
+        return $client['id'];
+    }
 }

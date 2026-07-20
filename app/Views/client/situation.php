@@ -17,6 +17,32 @@ Solde actuel :
 <hr>
 
 
+<h2>Actions</h2>
+
+<a href="<?= base_url('client/formulaire/'.$informations['id'].'/depot') ?>">
+    <button>
+        Faire un dépôt
+    </button>
+</a>
+
+
+<a href="<?= base_url('client/formulaire/'.$informations['id'].'/retrait') ?>">
+    <button>
+        Faire un retrait
+    </button>
+</a>
+
+
+<a href="<?= base_url('client/formulaire/'.$informations['id'].'/transfert') ?>">
+    <button>
+        Transférer argent
+    </button>
+</a>
+
+
+<hr>
+
+
 <h2>Historique des transactions</h2>
 
 <table border="1">
@@ -33,9 +59,12 @@ Solde actuel :
 
 <tr>
     <td><?= $h['date'] ?></td>
+
     <td><?= $h['type_operation'] ?></td>
-    <td><?= $h['montant'] ?></td>
-    <td><?= $h['frais'] ?></td>
+
+    <td><?= $h['montant'] ?> Ar</td>
+
+    <td><?= $h['frais'] ?> Ar</td>
 </tr>
 
 <?php endforeach; ?>
