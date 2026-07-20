@@ -9,14 +9,6 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class ClientController extends BaseController
 {
-
-    protected $clientModel;
-
-    public function __construct()
-    {
-        $this->clientModel = new ClientModel();
-    }
-
     public function index()
     {
         return view('Client/index');
@@ -197,6 +189,7 @@ class ClientController extends BaseController
             case 3:
 
                 $numero_destinataire = $this->request->getPost('numero_destinataire');
+                $meme_operateur = $this->request->getPost('meme_operateur') === '1';
                 $inclure_frais_retrait = $this->request->getPost('inclure_frais') === '1';
 
 
@@ -214,30 +207,19 @@ class ClientController extends BaseController
                 }
 
 
-                // On determine la realite (meme operateur ou non) directement a
-                // partir des donnees en base, plutot que de se fier uniquement
-                // au choix affiche cote client.
-                $isAutreOperateur = $clientModel->isAutreOperateur($id_client, $destinataire['id']);
-
-                // Frais du transfert lui-meme (toujours preleve en plus du montant envoye)
                 $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montant);
 
-                // Frais que le destinataire paierait pour retirer la somme envoyee
-                // (id_type_operation 2 = retrait), utilise uniquement si le client
-                // choisit d'inclure ce frais de retrait dans le montant envoye.
-                // Cette option n'a de sens que pour un transfert vers le meme
-                // operateur (pour un autre operateur, c'est la commission qui
-                // s'applique a la place).
+                // Frais que destinataire sera chargee de payer
                 $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montant);
 
-                $inclureFraisRetraitEffectif = !$isAutreOperateur && $inclure_frais_retrait;
+
+                $inclureFraisRetraitEffectif = $meme_operateur && $inclure_frais_retrait;
 
                 $calcul = $historiqueModel->calculerTransfert(
-                    $montant,
+                    $montant,1
                     $fraisTransfert,
                     $fraisRetraitDestinataire,
-                    $inclureFraisRetraitEffectif,
-                    $isAutreOperateur
+                    $inclureFraisRetraitEffectif
                 );
 
 
@@ -247,12 +229,12 @@ class ClientController extends BaseController
                         ->with('error', 'Solde insuffisant pour effectuer ce transfert.');
                 }
 
+
                 $historiqueModel->transfert(
                     $id_client,
                     $destinataire['id'],
                     $calcul['montant'],
                     $calcul['frais'],
-                    $calcul['commission'],
                     $id_type_operation
                 );
 
@@ -336,35 +318,18 @@ class ClientController extends BaseController
         }
 
         // Le montant étant divisé équitablement, le frais de transfert et le
-        // frais de retrait du destinataire sont identiques pour chaque envoi
-        // (seule la commission peut varier, selon que chaque destinataire
-        // appartient au même opérateur ou non).
+        // frais de retrait du destinataire sont identiques pour chaque envoi.
         $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montantParDestinataire);
         $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montantParDestinataire);
 
-        // On calcule le détail (montant/frais/commission/total) pour chaque
-        // destinataire individuellement, car un destinataire peut appartenir
-        // à un autre opérateur que l'expéditeur (la commission s'applique
-        // alors pour cet envoi, et le frais de retrait n'est plus pertinent).
-        $calculs = [];
-        $totalPreleve = 0;
+        $calcul = $historiqueModel->calculerTransfert(
+            $montantParDestinataire,
+            $fraisTransfert,
+            $fraisRetraitDestinataire,
+            $inclure_frais_retrait
+        );
 
-        foreach ($destinataires as $destinataire) {
-            $isAutreOperateur = $clientModel->isAutreOperateur($id_client, $destinataire['id']);
-
-            $inclureFraisRetraitEffectif = !$isAutreOperateur && $inclure_frais_retrait;
-
-            $calcul = $historiqueModel->calculerTransfert(
-                $montantParDestinataire,
-                $fraisTransfert,
-                $fraisRetraitDestinataire,
-                $inclureFraisRetraitEffectif,
-                $isAutreOperateur
-            );
-
-            $calculs[] = $calcul;
-            $totalPreleve += $calcul['total'];
-        }
+        $totalPreleve = $calcul['total'] * $nombreDestinataires;
 
         if (!$historiqueModel->soldeSuffisant($id_client, $totalPreleve)) {
             return redirect()->back()
@@ -372,15 +337,12 @@ class ClientController extends BaseController
                 ->with('error', 'Solde insuffisant pour effectuer ces transferts.');
         }
 
-        foreach ($destinataires as $index => $destinataire) {
-            $calcul = $calculs[$index];
-
+        foreach ($destinataires as $destinataire) {
             $historiqueModel->transfert(
                 $id_client,
                 $destinataire['id'],
                 $calcul['montant'],
                 $calcul['frais'],
-                $calcul['commission'],
                 $id_type_operation
             );
 
