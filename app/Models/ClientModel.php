@@ -79,7 +79,7 @@ class ClientModel extends Model
                 SUM(
                     CASE
                         WHEN type_operation.libelle IN ('transfert','retrait')
-                        THEN montant
+                        THEN montant + frais
                         ELSE 0
                     END
                 ) AS sortie

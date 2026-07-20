@@ -18,7 +18,8 @@ class HistoriqueModel extends Model
         'id_type_operation',
         'montant',
         'date',
-        'frais'
+        'frais',
+        'commission'
     ];
 
 
@@ -73,7 +74,7 @@ class HistoriqueModel extends Model
         );
 
 
-        $montant = $montantsaisie - $frais;
+        $montant = $montantsaisie;
 
 
         return $this->insert([
@@ -115,7 +116,7 @@ class HistoriqueModel extends Model
         );
 
 
-        $montant = $montantsaisie - $frais;
+        $montant = $montantsaisie;
 
 
         return $this->insert([
@@ -147,7 +148,7 @@ class HistoriqueModel extends Model
         );
 
 
-        $montant = $montantsaisie - $frais;
+        $montant = $montantsaisie;
 
 
         return $this->insert([
