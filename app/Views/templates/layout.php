@@ -22,6 +22,7 @@
                     <a href="<?= base_url('liste_type_operation') ?>" class="<?= str_starts_with($currentPath, 'liste_type_operation') || str_starts_with($currentPath, 'ajouter_type_operation') || str_starts_with($currentPath, 'modifier_type_operation') ? 'active' : '' ?>">Types d'opération</a>
                     <a href="<?= base_url('operateur/clients') ?>" class="<?= str_starts_with($currentPath, 'operateur/clients') || str_starts_with($currentPath, 'operateur/situationClient') ? 'active' : '' ?>">Clients</a>
                     <a href="<?= base_url('operateur/gain') ?>" class="<?= str_starts_with($currentPath, 'operateur/gain') ? 'active' : '' ?>">Gains</a>
+                    <a href="<?= base_url('liste_operateur') ?>" class="<?= str_starts_with($currentPath, 'liste_operateur') || str_starts_with($currentPath, 'operateur/situationAutreOperateur') ? 'active' : '' ?>">Opérateurs</a>
                 </nav>
 
                 <a href="<?= base_url('logout') ?>" class="navbar-logout">Déconnexion</a>

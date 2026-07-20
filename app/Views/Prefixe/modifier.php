@@ -15,6 +15,17 @@
             <input type="text" name="code" id="code" value="<?= $prefixe['code'] ?>" required>
         </div>
 
+        <div class="form-group">
+            <label for="operateur_id">Opérateur</label>
+            <select name="operateur_id" id="operateur_id" required>
+                <?php foreach ($operateurs as $operateur) : ?>
+                    <option value="<?= $operateur['id'] ?>" <?= ($operateur['id'] == $prefixe['operateur_id']) ? 'selected' : '' ?>>
+                        <?= $operateur['nom'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
         <button type="submit">Modifier</button>
     </form>
 </div>

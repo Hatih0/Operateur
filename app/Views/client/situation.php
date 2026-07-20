@@ -40,6 +40,10 @@
         <a class="btn" href="<?= base_url('client/formulaire/transfert') ?>">
             Transférer argent
         </a>
+
+        <a class="btn" href="<?= base_url('client/insertionmultiple') ?>">
+            Insertion multiple (même opérateur)
+        </a>
     </div>
 </div>
 
@@ -54,6 +58,7 @@
                     <th>Type</th>
                     <th>Montant</th>
                     <th>Frais</th>
+                    <th>Commission</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,6 +68,7 @@
                         <td><?= $h['type_operation'] ?></td>
                         <td><?= $h['montant'] ?> Ar</td>
                         <td><?= $h['frais'] ?> Ar</td>
+                        <td><?= $h['commission'] ?> Ar</td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

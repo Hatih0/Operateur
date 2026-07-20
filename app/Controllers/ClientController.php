@@ -9,6 +9,14 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class ClientController extends BaseController
 {
+
+    protected $clientModel;
+
+    public function __construct()
+    {
+        $this->clientModel = new ClientModel();
+    }
+
     public function index()
     {
         return view('Client/index');
@@ -78,11 +86,34 @@ class ClientController extends BaseController
             'client' => $client,
             'id_type_operation' => $id_type_operation,
             'transfert' => $transfert,
-            'operation' => $operation
+            'operation' => $operation,
+            'solde' => $clientModel->getSoldeClient($id)
         ];
 
 
         return view('Client/formulaire', $data);
+    }
+
+    public function insertionMultiple()
+    {
+        $id = session()->get('client_id');
+
+        $clientModel = new ClientModel();
+
+        $client = $clientModel->getClientById($id);
+
+        if (!$client) {
+            return redirect()->back()
+                ->with('error', 'Client introuvable');
+        }
+
+        $data = [
+            'client' => $client,
+            'id_type_operation' => 3,
+            'solde' => $clientModel->getSoldeClient($id)
+        ];
+
+        return view('Client/insertionmultiple', $data);
     }
 
     /**
@@ -166,6 +197,8 @@ class ClientController extends BaseController
             case 3:
 
                 $numero_destinataire = $this->request->getPost('numero_destinataire');
+                $meme_operateur = $this->request->getPost('meme_operateur') === '1';
+                $inclure_frais_retrait = $this->request->getPost('inclure_frais') === '1';
 
 
                 $clientModel = new \App\Models\ClientModel();
@@ -182,23 +215,52 @@ class ClientController extends BaseController
                 }
 
 
-                if (!$historiqueModel->soldeSuffisant($id_client, $montant)) {
+                $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montant);
+
+                // Frais que destinataire sera chargee de payer
+                $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montant);
+
+
+                $inclureFraisRetraitEffectif = $meme_operateur && $inclure_frais_retrait;
+
+                $calcul = $historiqueModel->calculerTransfert(
+                    $montant,
+                    $fraisTransfert,
+                    $fraisRetraitDestinataire,
+                    $inclureFraisRetraitEffectif
+                );
+
+
+                if (!$historiqueModel->soldeSuffisant($id_client, $calcul['total'])) {
                     return redirect()->back()
                         ->withInput()
                         ->with('error', 'Solde insuffisant pour effectuer ce transfert.');
                 }
 
+                $operateurExpediteur = $this->clientModel->get_operateur($id_client);
+                $operateurDestinataire = $this->clientModel->get_operateur($destinataire['id']);
+
+                $isAutreOperateur = false;
+
+                if (
+                    $operateurExpediteur
+                    && $operateurDestinataire
+                    && $operateurExpediteur['operateur_id'] !== $operateurDestinataire['operateur_id']
+                ) {
+                    $isAutreOperateur = true;
+                }
 
                 $historiqueModel->transfert(
                     $id_client,
                     $destinataire['id'],
                     $montant,
-                    $id_type_operation
+                    $id_type_operation,
+                    $isAutreOperateur
                 );
 
                 $historiqueModel->recus(
                     $destinataire['id'],
-                    $montant,
+                    $calcul['montant'],
                     $id_type_operation
                 );
 
@@ -215,5 +277,104 @@ class ClientController extends BaseController
         return redirect()
             ->to('/client/situation')
             ->with('success', 'Opération effectuée');
+    }
+
+    public function operationMultiple()
+    {
+        $id_client = $this->request->getPost('id_client');
+
+        if (empty($id_client)) {
+            $clientModel = new ClientModel();
+            $id_client = $clientModel->getIdClientByNumero($this->request->getPost('numero'));
+        }
+
+        $montantTotal = (float) $this->request->getPost('montant');
+        $inclure_frais_retrait = $this->request->getPost('inclure_frais') === '1';
+
+        $numeros = $this->request->getPost('numero_destinataire');
+        $numeros = is_array($numeros) ? $numeros : [];
+
+        // On ne garde que les numéros non vides
+        $numeros = array_values(array_filter($numeros, function ($numero) {
+            return trim((string) $numero) !== '';
+        }));
+
+        if (empty($numeros)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Veuillez ajouter au moins un destinataire.');
+        }
+
+        if (!$montantTotal || $montantTotal <= 0) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Montant invalide.');
+        }
+
+        $nombreDestinataires = count($numeros);
+
+        // Division équitable du montant total entre tous les destinataires
+        $montantParDestinataire = $montantTotal / $nombreDestinataires;
+
+        $id_type_operation = 3; // transfert
+
+        $historiqueModel = new \App\Models\HistoriqueModel();
+        $clientModel = new \App\Models\ClientModel();
+
+        $destinataires = [];
+
+        foreach ($numeros as $numero) {
+            $destinataire = $clientModel
+                ->where('numero', $numero)
+                ->first();
+
+            if (!$destinataire) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Destinataire introuvable pour le numéro : ' . $numero);
+            }
+
+            $destinataires[] = $destinataire;
+        }
+
+        // Le montant étant divisé équitablement, le frais de transfert et le
+        // frais de retrait du destinataire sont identiques pour chaque envoi.
+        $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montantParDestinataire);
+        $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montantParDestinataire);
+
+        $calcul = $historiqueModel->calculerTransfert(
+            $montantParDestinataire,
+            $fraisTransfert,
+            $fraisRetraitDestinataire,
+            $inclure_frais_retrait
+        );
+
+        $totalPreleve = $calcul['total'] * $nombreDestinataires;
+
+        if (!$historiqueModel->soldeSuffisant($id_client, $totalPreleve)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Solde insuffisant pour effectuer ces transferts.');
+        }
+
+        foreach ($destinataires as $destinataire) {
+            $historiqueModel->transfert(
+                $id_client,
+                $destinataire['id'],
+                $calcul['montant'],
+                $calcul['frais'],
+                $id_type_operation
+            );
+
+            $historiqueModel->recus(
+                $destinataire['id'],
+                $calcul['montant'],
+                $id_type_operation
+            );
+        }
+
+        return redirect()
+            ->to('/client/situation')
+            ->with('success', 'Insertion multiple effectuée avec succès (' . $nombreDestinataires . ' destinataires).');
     }
 }

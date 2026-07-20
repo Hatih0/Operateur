@@ -4,7 +4,9 @@ CREATE TABLE client (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
     code TEXT NOT NULL,
-    numero TEXT NOT NULL
+    numero TEXT NOT NULL,
+    operateur_id INTEGER NOT NULL,
+    FOREIGN KEY (operateur_id) REFERENCES operateur(id)
 );
 
 CREATE TABLE type_operation (
@@ -22,8 +24,6 @@ CREATE TABLE configuration (
     FOREIGN KEY (id_type_operation) REFERENCES type_operation(id)
 );
 
-DROP TABLE configuration;
-
 CREATE TABLE operateur (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
@@ -37,12 +37,15 @@ CREATE TABLE historique (
     montant REAL NOT NULL,
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
     frais REAL NOT NULL,
+    id_destinataire INTEGER DEFAULT NULL,
+    commission REAL NOT NULL,
     FOREIGN KEY (id_client) REFERENCES client(id),
     FOREIGN KEY (id_type_operation) REFERENCES type_operation(id)
 );
-ALTER TABLE historique ADD COLUMN id_destinataire INTEGER DEFAULT NULL ;
 
 CREATE Table prefixe (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    code TEXT
+    code TEXT,
+    operateur_id INTEGER NOT NULL,
+    FOREIGN KEY (operateur_id) REFERENCES operateur(id)
 );
