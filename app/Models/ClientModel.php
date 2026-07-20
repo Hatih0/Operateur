@@ -12,7 +12,7 @@ class ClientModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['numero', 'nom', 'code'];
+    protected $allowedFields    = ['numero', 'nom', 'code', 'operateur_id'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -79,7 +79,7 @@ class ClientModel extends Model
                 SUM(
                     CASE
                         WHEN type_operation.libelle IN ('transfert','retrait')
-                        THEN montant + frais
+                        THEN montant + frais + commission
                         ELSE 0
                     END
                 ) AS sortie
@@ -122,7 +122,8 @@ class ClientModel extends Model
                 historique.montant,
                 historique.frais,
                 historique.date,
-                type_operation.libelle AS type_operation
+                type_operation.libelle AS type_operation,
+                historique.commission
             ')
             ->join(
                 'type_operation',
@@ -149,6 +150,15 @@ class ClientModel extends Model
     public function FirstClient()
     {
         return $this->orderBy('id', 'ASC')->first();
+    }
+
+    public function get_operateur ($id_client) {
+
+        return $this->db->table('client')
+            ->select('operateur_id')
+            ->where('client.id', $id_client)
+            ->get()
+            ->getRowArray();
     }
 
 }

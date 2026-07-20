@@ -15,6 +15,16 @@
             <input type="text" name="code" id="code" required>
         </div>
 
+        <div class="form-group">
+            <label for="operateur_id">Opérateur</label>
+            <select name="operateur_id" id="operateur_id" required>
+                <option value="">Sélectionner un opérateur</option>
+                <?php foreach ($operateurs as $operateur) : ?>
+                    <option value="<?= $operateur['id'] ?>"><?= $operateur['nom'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
         <button type="submit">Ajouter</button>
     </form>
 </div>

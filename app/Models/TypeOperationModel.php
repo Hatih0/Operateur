@@ -44,16 +44,31 @@ class TypeOperationModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getGainParType($id_type_operation, $date)
-    {
-        return $this->db->table('historique')
-            ->select('COUNT(*) AS nombre, SUM(frais) AS gain')
-            ->where('id_type_operation', $id_type_operation)
-            ->where('date <=', $date)
+public function getGainParType($id_type_operation, $date, $isAutreOperateur)
+{
+    if ($isAutreOperateur) {
+        return $this->db->table('historique h')
+            ->select('COUNT(*) AS nombre, SUM(h.frais) AS gain')
+            ->join('client c', 'c.id = h.id_client')
+            ->where('h.id_type_operation', $id_type_operation)
+            ->where('c.operateur_id !=', 1)
+            ->where('h.date <=', $date)
             ->get()
             ->getRowArray();
+    } else {
+        return $this->db->table('historique h')
+        ->select('COUNT(*) AS nombre, SUM(h.frais) AS gain')
+        ->join('client c', 'c.id = h.id_client')
+        ->where('h.id_type_operation', $id_type_operation)
+        ->where('c.operateur_id', 1)
+        ->where('h.date <=', $date)
+        ->get()
+        ->getRowArray();
     }
-    public function getGainTotal($date)
+    }
+
+
+    public function getGainTotal($date,$isAutreOperateur)
     {
         $types = $this->findAll();
 
@@ -61,7 +76,7 @@ class TypeOperationModel extends Model
         $totalGain = 0;
 
         foreach ($types as $type) {
-            $gain = $this->getGainParType($type['id'], $date);
+            $gain = $this->getGainParType($type['id'], $date, $isAutreOperateur);
 
             $totalNombre += $gain['nombre'] ?? 0;
             $totalGain += $gain['gain'] ?? 0;
@@ -72,4 +87,7 @@ class TypeOperationModel extends Model
             'gain'   => $totalGain
         ];
     }
+
+
+
 }

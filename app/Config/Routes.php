@@ -47,3 +47,8 @@ $routes->get('client/formulaire/retrait','ClientController::formulaire/retrait',
 $routes->get('client/formulaire/transfert','ClientController::formulaire/transfert', ['filter' => 'authClient']);
 $routes->get('client/frais', 'ClientController::getFrais', ['filter' => 'authClient']);
 $routes->post('client/operation','ClientController::operation', ['filter' => 'authClient']);
+
+
+$routes->get('/situation_autre_operateur', 'OperateurController::getSituationGainAutreOperateur' , ['filter' => 'authOperateur']);
+$routes->get('/liste_operateur', 'OperateurController::listeOperateurs' , ['filter' => 'authOperateur']);
+$routes->get('/operateur/situationAutreOperateur/(:num)', 'OperateurController::situationAutreOperateur/$1', ['filter' => 'authOperateur']);
