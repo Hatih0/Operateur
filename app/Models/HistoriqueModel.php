@@ -82,7 +82,8 @@ class HistoriqueModel extends Model
             'id_destinataire' => null,
             'id_type_operation' => $id_type_operation,
             'montant' => $montant,
-            'frais' => $frais
+            'frais' => $frais,
+            'commission' => 0
         ]);
     }
 
@@ -100,7 +101,8 @@ class HistoriqueModel extends Model
             'id_destinataire' => null,
             'id_type_operation' => $depot_id,
             'montant' => $montantsaisie,
-            'frais' => $frais
+            'frais' => $frais,
+            'commission' => 0
         ]);
 
     }
@@ -124,7 +126,8 @@ class HistoriqueModel extends Model
             'id_destinataire' => null,
             'id_type_operation' => $id_type_operation,
             'montant' => $montant,
-            'frais' => $frais
+            'frais' => $frais,
+            'commission' => 0
         ]);
     }
 
@@ -134,11 +137,25 @@ class HistoriqueModel extends Model
     public function transfert(
         $id_client,
         $id_destinataire,
-        $montant,
-        $frais,
-        $id_type_operation
+        $montantsaisie,
+        $id_type_operation,
+        $isAutreOperateur
     )
     {
+
+        $frais = $this->getFrais(
+            $id_type_operation,
+            $montantsaisie
+        );
+
+
+        $montant = $montantsaisie;
+        $commission = 0;
+
+        if ($isAutreOperateur) {
+            $commission = $montant * 0.1;
+        }
+
         return $this->insert([
             'id_client' => $id_client,
 
@@ -148,7 +165,10 @@ class HistoriqueModel extends Model
 
             'montant' => $montant,
 
-            'frais' => $frais
+            'frais' => $frais,
+
+            'commission' => $commission
+
         ]);
     }
 
@@ -163,6 +183,17 @@ class HistoriqueModel extends Model
             'frais'   => $fraisTransfert,
             'total'   => $montant + $fraisTransfert,
         ];
+
+    }
+    
+    public function getTotalGainsByOperateur($id_operateur)
+    {
+        return $this->db->table('historique h')
+            ->select('COUNT(*) AS nombre,SUM(h.frais) AS total_gains')
+            ->join('client c', 'c.id = h.id_client')
+            ->where('c.operateur_id', $id_operateur)
+            ->get()
+            ->getRowArray();
     }
 
 }

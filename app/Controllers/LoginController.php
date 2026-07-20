@@ -27,18 +27,33 @@ class LoginController extends BaseController
         return view('Login/login_client', ['FirstClient' => $FirstClient]);
     }
 
-    public function validation ($numero) {
+    /**
+     * Recherche le préfixe correspondant au début du numéro donné.
+     * Renvoie null si aucun préfixe enregistré ne correspond.
+     */
+    private function findPrefixeForNumero($numero)
+    {
+        $prefixes = $this->prefixeModel->findAll();
 
-        $prefixe = $this->prefixeModel->findAll();
-        $prefixes = array_column($prefixe, 'code');
-
-        foreach ($prefixes as $prefix) {
-            if (strpos($numero, $prefix) === 0) {
-                return true;
+        foreach ($prefixes as $prefixe) {
+            if (strpos($numero, $prefixe['code']) === 0) {
+                return $prefixe;
             }
         }
 
-        return false;
+        return null;
+    }
+
+    /**
+     * Un numéro n'est valide pour la connexion client que si son préfixe
+     * appartient à l'opérateur principal (id = 1). Les numéros des autres
+     * opérateurs (Telma, Orange, ...) ne peuvent pas se connecter ici.
+     */
+    public function validation ($numero) {
+
+        $prefixe = $this->findPrefixeForNumero($numero);
+
+        return $prefixe !== null && (int) $prefixe['operateur_id'] === 1;
 
     }
 
@@ -46,8 +61,12 @@ class LoginController extends BaseController
 
         $numero = $this->request->getPost('Numero');
         $Client = $this->clientModel->getClientByNumero($numero);
-        if (!$this->validation($numero)) {
+        $prefixe = $this->findPrefixeForNumero($numero);
+
+        if ($prefixe === null) {
             return redirect()->back()->withInput()->with('error', 'Numero de telephone invalide.');
+        } else if ((int) $prefixe['operateur_id'] !== 1) {
+            return redirect()->back()->withInput()->with('error', 'Ce numéro appartient à un autre opérateur, la connexion est réservée aux clients de notre réseau.');
         } else if ($Client) {
 
             session()->set('client_id', $Client['id']);

@@ -487,6 +487,16 @@ table tbody tr:last-child td {
     color: var(--primary-dark);
 }
 
+.badge-muted {
+  background: #f1f2f6;
+  color: var(--text-muted);
+}
+
+.badge-danger {
+  background: var(--danger-light);
+  color: #7f1d1d;
+}
+
 /* -------------------------------- Utility -------------------------------- */
 
 .text-muted {

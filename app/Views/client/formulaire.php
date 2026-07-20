@@ -61,31 +61,6 @@
             <div class="form-group">
                 <label>Type de transfert :</label>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="meme_operateur_choix"
-                        id="choixMemeOperateur"
-                        value="1"
-                        checked
-                    >
-                    Envoyer pour même opérateur
-                </label>
-
-                <label>
-                    <input
-                        type="radio"
-                        name="meme_operateur_choix"
-                        id="choixAutreOperateur"
-                        value="0"
-                    >
-                    Envoyer pour autre opérateur
-                </label>
-            </div>
-
-            <!-- Champ caché envoyé réellement au serveur -->
-            <input type="hidden" name="meme_operateur" id="meme_operateur" value="1">
-
             <!-- Frais de retrait du destinataire inclus dans le montant envoyé : uniquement pour le même opérateur -->
             <div class="form-group" id="blocInclureFrais">
                 <label>

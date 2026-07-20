@@ -18,6 +18,8 @@
             <thead>
                 <tr>
                     <th>Code</th>
+                    <th>Opérateur</th>
+                    <th>Connexion client</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -25,6 +27,14 @@
                 <?php foreach ($prefixes as $prefixe) : ?>
                     <tr>
                         <td><?= $prefixe['code'] ?></td>
+                        <td><?= $prefixe['operateur_nom'] ?></td>
+                        <td>
+                            <?php if ((int) $prefixe['operateur_id'] === 1) : ?>
+                                <span class="badge">Autorisée</span>
+                            <?php else : ?>
+                                <span class="badge badge-muted">Bloquée</span>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <div class="actions">
                                 <a class="btn btn-outline btn-sm" href="/modifier_prefixe/<?= $prefixe['id'] ?>">Modifier</a>
