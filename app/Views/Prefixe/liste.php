@@ -4,12 +4,14 @@
 
 <?= $this->section('content') ?>
 
-<div class="nav-links">
-    <a class="nav-link" href="/ajouter_prefixe">Ajouter un préfixe</a>
-</div>
-
 <div class="card">
-    <h1>Liste des préfixes</h1>
+    <div class="card-header">
+        <h1 style="margin-bottom:0;">Liste des préfixes</h1>
+
+        <div class="nav-links">
+            <a class="btn btn-sm" href="/ajouter_prefixe">+ Ajouter un préfixe</a>
+        </div>
+    </div>
 
     <div class="table-wrapper">
         <table>

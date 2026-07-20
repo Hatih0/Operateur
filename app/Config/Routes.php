@@ -42,6 +42,7 @@ $routes->get('/operateur/clients', 'OperateurController::getAllClients' , ['filt
 $routes->get('/operateur/situationClient/(:num)', 'OperateurController::situationClient/$1', ['filter' => 'authOperateur']);
 
 $routes->get('/client/situation/(:num)', 'ClientController::situation/$1', ['filter' => 'authClient']);
+$routes->get('client/frais', 'ClientController::getFrais', ['filter' => 'authClient']);
 $routes->get('client/formulaire/(:num)/depot','ClientController::formulaire/$1/depot', ['filter' => 'authClient']);
 $routes->get('client/formulaire/(:num)/retrait','ClientController::formulaire/$1/retrait', ['filter' => 'authClient']);
 $routes->get('client/formulaire/(:num)/transfert','ClientController::formulaire/$1/transfert', ['filter' => 'authClient']);

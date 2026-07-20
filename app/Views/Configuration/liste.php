@@ -4,14 +4,14 @@
 
 <?= $this->section('content') ?>
 
-<div class="nav-links">
-    <a class="nav-link" href="/ajouter_prefixe">Ajouter un préfixe</a>
-    <a class="nav-link" href="/ajouter_configuration">Ajouter une configuration</a>
-</div>
-
 <div class="card">
     <div class="card-header">
         <h1 style="margin-bottom:0;">Liste des configurations</h1>
+
+        <div class="nav-links">
+            <a class="btn btn-outline btn-sm" href="/ajouter_prefixe">+ Ajouter un préfixe</a>
+            <a class="btn btn-sm" href="/ajouter_configuration">+ Ajouter une configuration</a>
+        </div>
     </div>
 
     <div class="table-wrapper">

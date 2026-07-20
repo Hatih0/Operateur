@@ -4,12 +4,14 @@
 
 <?= $this->section('content') ?>
 
-<div class="nav-links">
-    <a class="nav-link" href="/ajouter_type_operation">Ajouter un type d'opération</a>
-</div>
-
 <div class="card">
-    <h1>Liste des types d'opération</h1>
+    <div class="card-header">
+        <h1 style="margin-bottom:0;">Liste des types d'opération</h1>
+
+        <div class="nav-links">
+            <a class="btn btn-sm" href="/ajouter_type_operation">+ Ajouter un type d'opération</a>
+        </div>
+    </div>
 
     <div class="table-wrapper">
         <table>

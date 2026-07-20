@@ -12,9 +12,11 @@
         <!-- Montant -->
         <div class="form-group">
             <label>Montant :</label>
+            <div id="fraisInfo" class="frais-info"></div>
             <input
                 type="number"
                 name="montant"
+                id="montant"
                 value="<?= $montant ?? '' ?>"
                 required
             >
@@ -61,6 +63,7 @@
         <input
             type="hidden"
             name="id_type_operation"
+            id="id_type_operation"
             value="<?= $id_type_operation ?>"
         >
 
@@ -68,5 +71,56 @@
 
     </form>
 </div>
+
+<script>
+    
+(function () {
+    var montantInput = document.getElementById('montant');
+    var typeOperationInput = document.getElementById('id_type_operation');
+    var fraisInfo = document.getElementById('fraisInfo');
+    var timer = null;
+
+    function afficherMessage(text, type) {
+        fraisInfo.textContent = text;
+        fraisInfo.className = 'frais-info' + (type ? ' frais-info-' + type : '');
+    }
+
+    function verifierMontant() {
+        var montant = montantInput.value;
+        var idTypeOperation = typeOperationInput.value;
+
+        if (!montant) {
+            afficherMessage('', '');
+            return;
+        }
+
+        var url = '<?= base_url('client/frais') ?>'
+            + '?id_type_operation=' + encodeURIComponent(idTypeOperation)
+            + '&montant=' + encodeURIComponent(montant);
+
+        fetch(url)
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+                if (data.found) {
+                    afficherMessage('Montant configuré pour cette opération : ' + data.montant + ' Ar', 'success');
+                } else {
+                    afficherMessage("La configuration pour ce montant n'existe pas.", 'error');
+                }
+            })
+            .catch(function () {
+                afficherMessage('Erreur lors de la vérification du montant.', 'error');
+            });
+    }
+
+    montantInput.addEventListener('input', function () {
+        clearTimeout(timer);
+        timer = setTimeout(verifierMontant, 400);
+    });
+
+    if (montantInput.value) {
+        verifierMontant();
+    }
+})();
+</script>
 
 <?= $this->endSection() ?>
