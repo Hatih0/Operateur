@@ -61,4 +61,3 @@ class Database extends Config
         }
     }
 }
-s
