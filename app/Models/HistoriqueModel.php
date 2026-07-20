@@ -82,7 +82,8 @@ class HistoriqueModel extends Model
             'id_destinataire' => null,
             'id_type_operation' => $id_type_operation,
             'montant' => $montant,
-            'frais' => $frais
+            'frais' => $frais,
+            'commission' => 0
         ]);
     }
 
@@ -100,7 +101,8 @@ class HistoriqueModel extends Model
             'id_destinataire' => null,
             'id_type_operation' => $depot_id,
             'montant' => $montantsaisie,
-            'frais' => $frais
+            'frais' => $frais,
+            'commission' => 0
         ]);
 
     }
@@ -124,18 +126,32 @@ class HistoriqueModel extends Model
             'id_destinataire' => null,
             'id_type_operation' => $id_type_operation,
             'montant' => $montant,
-            'frais' => $frais
+            'frais' => $frais,
+            'commission' => 0
         ]);
     }
 
 
 
 
+    /**
+     * Transfert
+     *
+     * $montant, $frais et $commission sont déjà calculés par l'appelant
+     * (ClientController) :
+     * - $montant : montant effectivement envoyé/stocké pour le destinataire
+     *   (issu de calculerTransfert(), tient compte du choix "inclure le
+     *   frais de retrait du destinataire")
+     * - $frais : frais du transfert lui-même
+     * - $commission : commission prélevée en plus si le transfert se fait
+     *   vers un autre opérateur (0 sinon)
+     */
     public function transfert(
         $id_client,
         $id_destinataire,
         $montant,
         $frais,
+        $commission,
         $id_type_operation
     )
     {
@@ -148,21 +164,67 @@ class HistoriqueModel extends Model
 
             'montant' => $montant,
 
-            'frais' => $frais
+            'frais' => $frais,
+
+            'commission' => $commission
+
         ]);
     }
 
-    public function calculerTransfert($montantsaisie, $fraisTransfert, $fraisRetrait, bool $inclureFraisRetrait)
-    {
+    /**
+     * Taux de commission appliqué lorsque le transfert se fait vers un
+     * autre opérateur (10 %).
+     */
+    public const TAUX_COMMISSION_AUTRE_OPERATEUR = 0.1;
+
+    /**
+     * Détermine le montant à envoyer/stocker pour le destinataire, le frais
+     * de transfert, la commission (si transfert vers un autre opérateur)
+     * et le total à prélever sur le solde de l'expéditeur.
+     *
+     * Règle métier :
+     * - le frais de retrait du destinataire ($fraisRetrait) n'est ajouté
+     *   au montant envoyé que si le client choisit de l'inclure
+     *   ($inclureFraisRetrait = true), et uniquement pertinent pour un
+     *   transfert vers le même opérateur.
+     * - la commission ($isAutreOperateur = true) s'applique en plus,
+     *   qu'elle que soit le choix "inclure frais de retrait" (elle ne
+     *   concerne que les transferts inter-opérateurs, pour lesquels le
+     *   frais de retrait destinataire n'a pas de sens puisqu'il s'agit
+     *   d'un autre réseau).
+     * - total prélevé = montant envoyé + frais de transfert + commission
+     */
+    public function calculerTransfert(
+        $montantsaisie,
+        $fraisTransfert,
+        $fraisRetrait,
+        bool $inclureFraisRetrait,
+        bool $isAutreOperateur = false
+    ) {
         $montant = $inclureFraisRetrait
             ? ($montantsaisie + $fraisRetrait)
             : $montantsaisie;
 
+        $commission = $isAutreOperateur
+            ? round($montant * self::TAUX_COMMISSION_AUTRE_OPERATEUR, 2)
+            : 0;
+
         return [
-            'montant' => $montant,
-            'frais'   => $fraisTransfert,
-            'total'   => $montant + $fraisTransfert,
+            'montant'    => $montant,
+            'frais'      => $fraisTransfert,
+            'commission' => $commission,
+            'total'      => $montant + $fraisTransfert + $commission,
         ];
+    }
+
+    public function getTotalGainsByOperateur($id_operateur)
+    {
+        return $this->db->table('historique h')
+            ->select('COUNT(*) AS nombre,SUM(h.frais) AS total_gains')
+            ->join('client c', 'c.id = h.id_client')
+            ->where('c.operateur_id', $id_operateur)
+            ->get()
+            ->getRowArray();
     }
 
 }

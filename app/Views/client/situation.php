@@ -58,6 +58,7 @@
                     <th>Type</th>
                     <th>Montant</th>
                     <th>Frais</th>
+                    <th>Commission</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,6 +68,7 @@
                         <td><?= $h['type_operation'] ?></td>
                         <td><?= $h['montant'] ?> Ar</td>
                         <td><?= $h['frais'] ?> Ar</td>
+                        <td><?= $h['commission'] ?> Ar</td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

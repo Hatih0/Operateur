@@ -5,31 +5,41 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\PrefixeModel;
+use App\Models\OperateurModel;
 
 class PrefixeController extends BaseController
 {
     protected $prefixeModel;
+    protected $operateurModel;
 
     public function __construct()
     {
         $this->prefixeModel = new PrefixeModel();
+        $this->operateurModel = new OperateurModel();
     }
 
     public function liste()
     {
-        $data['prefixes'] = $this->prefixeModel->findAll();
+        $data['prefixes'] = $this->prefixeModel
+            ->select('prefixe.*, operateur.nom AS operateur_nom')
+            ->join('operateur', 'operateur.id = prefixe.operateur_id')
+            ->findAll();
+
         return view('prefixe/liste', $data);
     }
 
     public function create()
     {
-        return view('prefixe/ajouter');
+        $data['operateurs'] = $this->operateurModel->findAll();
+
+        return view('prefixe/ajouter', $data);
     }
 
     public function store()
     {
         $data = [
             'code' => $this->request->getPost('code'),
+            'operateur_id' => $this->request->getPost('operateur_id'),
         ];
 
         if ($this->prefixeModel->insert($data)) {
@@ -42,6 +52,8 @@ class PrefixeController extends BaseController
     public function edit($id)
     {
         $data['prefixe'] = $this->prefixeModel->find($id);
+        $data['operateurs'] = $this->operateurModel->findAll();
+
         return view('prefixe/modifier', $data);
     }
 
@@ -49,6 +61,7 @@ class PrefixeController extends BaseController
     {
         $data = [
             'code' => $this->request->getPost('code'),
+            'operateur_id' => $this->request->getPost('operateur_id'),
         ];
 
         if ($this->prefixeModel->update($id, $data)) {

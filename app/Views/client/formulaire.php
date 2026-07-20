@@ -57,7 +57,9 @@
                 >
             </div>
 
-            <!-- Choix du type de transfert -->
+            <!-- Choix du type de transfert (indicatif, sert à la simulation JS -->
+            <!-- ; le serveur détermine la réalité même/autre opérateur -->
+            <!-- automatiquement depuis la base de données). -->
             <div class="form-group">
                 <label>Type de transfert :</label>
 
@@ -69,7 +71,7 @@
                         value="1"
                         checked
                     >
-                    Envoyer pour même opérateur
+                    Envoyer vers le même opérateur
                 </label>
 
                 <label>
@@ -79,11 +81,12 @@
                         id="choixAutreOperateur"
                         value="0"
                     >
-                    Envoyer pour autre opérateur
+                    Envoyer vers un autre opérateur
                 </label>
             </div>
 
-            <!-- Champ caché envoyé réellement au serveur -->
+            <!-- Champ caché conservé pour compatibilité, non utilisé par le
+                 serveur (qui détermine automatiquement la réalité). -->
             <input type="hidden" name="meme_operateur" id="meme_operateur" value="1">
 
             <!-- Frais de retrait du destinataire inclus dans le montant envoyé : uniquement pour le même opérateur -->
@@ -220,6 +223,7 @@
     }
 
     var ID_TYPE_OPERATION_RETRAIT = 2;
+    var TAUX_COMMISSION_AUTRE_OPERATEUR = 0.1;
 
     function verifierTransfert() {
         var montant = parseFloat(montantInput.value);
@@ -245,29 +249,29 @@
                 var fraisRetrait = dataRetrait.found ? Number(dataRetrait.montant) : 0;
 
                 var memeOperateur = radioMemeOperateur.checked;
+                var autreOperateur = !memeOperateur;
+
+                // La case "inclure frais de retrait" n'a de sens que pour le même opérateur
                 var inclureFraisRetrait = memeOperateur && inclureFraisCheckbox.checked;
 
-                var montantEnvoye;
-                var total;
+                // Montant envoyé/stocké pour le destinataire (avant frais/commission)
+                var montantEnvoye = inclureFraisRetrait
+                    ? (montant + fraisRetrait)
+                    : montant;
 
-                if (inclureFraisRetrait) {
-                    // Frais de retrait du destinataire inclus dans le montant saisi :
-                    // montant envoyé = montant saisi - frais de retrait
-                    // total prélevé = montant envoyé + frais de transfert
-                    montantEnvoye = montant ;
-                    total = montant + fraisTransfert + fraisRetrait;
-                } else {
-                    // Frais de retrait non inclus :
-                    // montant envoyé = montant saisi
-                    // total prélevé = montant envoyé + frais de transfert
-                    montantEnvoye = montant;
-                    total = montantEnvoye + fraisTransfert;
-                }
+                // Commission appliquée uniquement pour un transfert vers un autre opérateur
+                var commission = autreOperateur
+                    ? Math.round(montantEnvoye * TAUX_COMMISSION_AUTRE_OPERATEUR * 100) / 100
+                    : 0;
+
+                var total = montantEnvoye + fraisTransfert + commission;
 
                 var message = 'Montant envoyé : ' + montantEnvoye + ' Ar - Frais de transfert : ' + fraisTransfert + ' Ar';
 
                 if (memeOperateur) {
                     message += ' - Frais de retrait destinataire : ' + fraisRetrait + ' Ar';
+                } else {
+                    message += ' - Commission (autre opérateur, 10%) : ' + commission + ' Ar';
                 }
 
                 message += ' - Total prélevé : ' + total + ' Ar';

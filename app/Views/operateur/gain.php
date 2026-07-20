@@ -5,7 +5,9 @@
 <?= $this->section('content') ?>
 
 <div class="card">
-    <h1>Situation des gains</h1>
+    <a href="/situation_autre_operateur"> Situation Gains Autre Operateur </a>
+
+    <h1>Situation des gains Operateur </h1>
 
     <div class="stats-grid">
         <div class="stat-card">
