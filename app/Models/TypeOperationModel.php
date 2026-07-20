@@ -43,4 +43,33 @@ class TypeOperationModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getGainParType($id_type_operation, $date)
+    {
+        return $this->db->table('historique')
+            ->select('COUNT(*) AS nombre, SUM(frais) AS gain')
+            ->where('id_type_operation', $id_type_operation)
+            ->where('date <=', $date)
+            ->get()
+            ->getRowArray();
+    }
+    public function getGainTotal($date)
+    {
+        $types = $this->findAll();
+
+        $totalNombre = 0;
+        $totalGain = 0;
+
+        foreach ($types as $type) {
+            $gain = $this->getGainParType($type['id'], $date);
+
+            $totalNombre += $gain['nombre'] ?? 0;
+            $totalGain += $gain['gain'] ?? 0;
+        }
+
+        return [
+            'nombre' => $totalNombre,
+            'gain'   => $totalGain
+        ];
+    }
 }
