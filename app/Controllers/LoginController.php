@@ -51,7 +51,7 @@ class LoginController extends BaseController
 
             session()->set('client_id', $Client['id']);
             session()->set('ClientLoggedIn', true);
-            return redirect()->to('/ClientHome')->with('success', 'Connexion réussie.');
+            return redirect()->to('/client/situation/'.$Client['id'])->with('success', 'Connexion réussie.');
 
         } else {
             return redirect()->back()->withInput()->with('error', 'Personne n a ce numero de telephone.');
