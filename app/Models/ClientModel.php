@@ -161,6 +161,7 @@ class ClientModel extends Model
             ->getRowArray();
     }
 
+<<<<<<< HEAD
     /**
      * Détermine si deux clients appartiennent à des opérateurs différents
      * (utilisé pour savoir si une commission de transfert doit s'appliquer).
@@ -177,4 +178,6 @@ class ClientModel extends Model
         return $operateurExpediteur['operateur_id'] !== $operateurDestinataire['operateur_id'];
     }
 
+=======
+>>>>>>> 1c428d50af3f31c4a0815e6dcc2c28fea6554f73
 }

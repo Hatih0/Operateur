@@ -149,12 +149,33 @@ class HistoriqueModel extends Model
     public function transfert(
         $id_client,
         $id_destinataire,
+<<<<<<< HEAD
         $montant,
         $frais,
         $commission,
         $id_type_operation
+=======
+        $montantsaisie,
+        $id_type_operation,
+        $isAutreOperateur
+>>>>>>> 1c428d50af3f31c4a0815e6dcc2c28fea6554f73
     )
     {
+
+        $frais = $this->getFrais(
+            $id_type_operation,
+            $montantsaisie
+        );
+
+
+        $montant = $montantsaisie;
+        $commission = 0;
+
+        if ($isAutreOperateur) {
+            $commission = $montant * 0.1;
+            $frais = 0;
+        }
+
         return $this->insert([
             'id_client' => $id_client,
 
@@ -215,6 +236,17 @@ class HistoriqueModel extends Model
             'commission' => $commission,
             'total'      => $montant + $fraisTransfert + $commission,
         ];
+
+    }
+    
+    public function getTotalGainsByOperateur($id_operateur)
+    {
+        return $this->db->table('historique h')
+            ->select('COUNT(*) AS nombre,SUM(h.frais) AS total_gains')
+            ->join('client c', 'c.id = h.id_client')
+            ->where('c.operateur_id', $id_operateur)
+            ->get()
+            ->getRowArray();
     }
 
     public function getTotalGainsByOperateur($id_operateur)

@@ -9,6 +9,14 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class ClientController extends BaseController
 {
+
+    protected $clientModel;
+
+    public function __construct()
+    {
+        $this->clientModel = new ClientModel();
+    }
+
     public function index()
     {
         return view('Client/index');
@@ -229,13 +237,25 @@ class ClientController extends BaseController
                         ->with('error', 'Solde insuffisant pour effectuer ce transfert.');
                 }
 
+                $operateurExpediteur = $this->clientModel->get_operateur($id_client);
+                $operateurDestinataire = $this->clientModel->get_operateur($destinataire['id']);
+
+                $isAutreOperateur = false;
+
+                if (
+                    $operateurExpediteur
+                    && $operateurDestinataire
+                    && $operateurExpediteur['operateur_id'] !== $operateurDestinataire['operateur_id']
+                ) {
+                    $isAutreOperateur = true;
+                }
 
                 $historiqueModel->transfert(
                     $id_client,
                     $destinataire['id'],
-                    $calcul['montant'],
-                    $calcul['frais'],
-                    $id_type_operation
+                    $montant,
+                    $id_type_operation,
+                    $isAutreOperateur
                 );
 
                 $historiqueModel->recus(
