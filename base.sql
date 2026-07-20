@@ -17,8 +17,11 @@ CREATE TABLE configuration (
     min REAL NOT NULL,
     max REAL NOT NULL,
     id_type_operation INTEGER NOT NULL,
+    montant REAL NOT NULL,
     FOREIGN KEY (id_type_operation) REFERENCES type_operation(id)
 );
+
+DROP TABLE configuration;
 
 CREATE TABLE operateur (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
