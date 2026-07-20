@@ -16,6 +16,7 @@ CREATE TABLE configuration (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     min REAL NOT NULL,
     max REAL NOT NULL,
+    montant REAL NOT NULL,
     id_type_operation INTEGER NOT NULL,
     FOREIGN KEY (id_type_operation) REFERENCES type_operation(id)
 );
@@ -31,7 +32,7 @@ CREATE TABLE historique (
     id_client INTEGER NOT NULL,
     id_type_operation INTEGER NOT NULL,
     montant REAL NOT NULL,
-    date TEXT DEFAULT CURRENT_TIMESTAMP,
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
     frais REAL NOT NULL,
     FOREIGN KEY (id_client) REFERENCES client(id),
     FOREIGN KEY (id_type_operation) REFERENCES type_operation(id)

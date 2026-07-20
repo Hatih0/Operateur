@@ -1,0 +1,97 @@
+CRITICAL - 2026-07-20 07:42:17 --> Error: Class "App\Controllers\TypeOperationModel" not found
+[Method: GET, Route: operateur/gain]
+in APPPATH\Controllers\OperateurController.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->getSituationGain()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:43:17 --> ErrorException: Undefined variable $clients
+[Method: GET, Route: operateur/clients]
+in APPPATH\Views\operateur\clients.php on line 11.
+ 1 APPPATH\Views\operateur\clients.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $clients', 'F:\\Operateur\\app\\Views\\operateur\\clients.php', 11)
+ 2 SYSTEMPATH\View\View.php(240): include('F:\\Operateur\\app\\Views\\operateur\\clients.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('operateur/clients', [], true)
+ 5 APPPATH\Controllers\OperateurController.php(75): view('operateur/clients', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->getAllClients()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:44:03 --> ParseError: syntax error, unexpected token ";"
+[Method: GET, Route: operateur/clients]
+in APPPATH\Views\operateur\clients.php on line 4.
+ 1 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('operateur/clients', [], true)
+ 3 APPPATH\Controllers\OperateurController.php(75): view('operateur/clients', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->getAllClients()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:44:56 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/situation.php"
+[Method: GET, Route: operateur/situationClient/1]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('client/situation.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('client/situation', [], true)
+ 3 APPPATH\Controllers\OperateurController.php(70): view('client/situation', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->situationClient('1')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:45:39 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/situation.php"
+[Method: GET, Route: operateur/situationClient/1]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('client/situation.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('client/situation', [], true)
+ 3 APPPATH\Controllers\OperateurController.php(70): view('client/situation', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->situationClient('1')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:45:58 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/situation.php"
+[Method: GET, Route: operateur/situationClient/1]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('client/situation.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('client/situation', [], true)
+ 3 APPPATH\Controllers\OperateurController.php(70): view('client/situation', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->situationClient('1')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:46:04 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "client/situationClient.php"
+[Method: GET, Route: operateur/situationClient/1]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('client/situationClient.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('client/situationClient', [], true)
+ 3 APPPATH\Controllers\OperateurController.php(70): view('client/situationClient', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->situationClient('1')
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:46:15 --> ErrorException: Undefined variable $solde
+[Method: GET, Route: operateur/situationClient/1]
+in APPPATH\Views\operateur\situationClient.php on line 24.
+ 1 APPPATH\Views\operateur\situationClient.php(24): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $solde', 'F:\\Operateur\\app\\Views\\operateur\\situationClient.php', 24)
+ 2 SYSTEMPATH\View\View.php(240): include('F:\\Operateur\\app\\Views\\operateur\\situationClient.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('operateur/situationClient', [], true)
+ 5 APPPATH\Controllers\OperateurController.php(70): view('operateur/situationClient', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\OperateurController->situationClient('1')
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OperateurController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
