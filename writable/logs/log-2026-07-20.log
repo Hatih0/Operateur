@@ -1163,6 +1163,476 @@ DEBUG - 2026-07-20 14:24:00 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 14:24:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:24:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:24:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+<<<<<<< HEAD
+DEBUG - 2026-07-20 14:47:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 14:47:13 --> Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 164.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(164): SQLite3->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 5 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 14:47:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: 1, no such column: commission
+[Method: GET, Route: client/situation]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 2 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 14:47:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 174.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 4 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 14:47:13 --> [Caused by] Exception: Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 164.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(164): SQLite3->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 5 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2026-07-20 14:48:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-20 14:48:04 --> Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 164.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(164): SQLite3->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 5 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 14:48:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: 1, no such column: commission
+[Method: GET, Route: client/situation]
+in SYSTEMPATH\Database\BaseConnection.php on line 865.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 2 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 14:48:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 174.
+ 1 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 4 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-07-20 14:48:04 --> [Caused by] Exception: Unable to prepare statement: 1, no such column: commission
+in SYSTEMPATH\Database\SQLite3\Connection.php on line 164.
+ 1 SYSTEMPATH\Database\SQLite3\Connection.php(164): SQLite3->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT SUM(
+                    CASE
+                        WHEN type_operation.libelle = \'depot\'
+                        THEN montant
+                        ELSE 0
+                    END
+                ) AS depot, SUM(
+                    CASE
+                        WHEN type_operation.libelle IN (\'transfert\', \'retrait\')
+                        THEN montant + frais + commission
+                        ELSE 0
+                    END
+                ) AS sortie
+FROM `historique`
+JOIN `type_operation` ON `type_operation`.`id` = `historique`.`id_type_operation`
+WHERE `id_client` = :id_client:', [...], false)
+ 5 APPPATH\Models\ClientModel.php(92): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ClientController.php(34): App\Models\ClientModel->getSituationClient(1)
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+=======
 DEBUG - 2026-07-20 14:34:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:35:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:35:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
@@ -1200,6 +1670,7 @@ DEBUG - 2026-07-20 14:39:53 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 14:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+<<<<<<< HEAD
 DEBUG - 2026-07-20 14:51:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:51:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:51:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
@@ -1215,3 +1686,138 @@ DEBUG - 2026-07-20 14:54:02 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 14:54:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:54:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 14:54:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+=======
+>>>>>>> 1c428d50af3f31c4a0815e6dcc2c28fea6554f73
+>>>>>>> 2a0e074a1d083dc2de4d160b700cf0078580a400
+CRITICAL - 2026-07-20 15:12:26 --> ParseError: syntax error, unexpected variable "$fraisTransfert", expecting ")"
+[Method: GET, Route: client/insertionmultiple]
+in APPPATH\Controllers\ClientController.php on line 228.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\Users\\Hatif\\Documents\\S4\\MrRojo\\Operateur\\Operateur\\app\\Controllers\\ClientController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\ClientController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\ClientController')
+ 4 SYSTEMPATH\Router\Router.php(792): class_exists('\\App\\Controllers\\ClientController')
+ 5 SYSTEMPATH\Router\Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('client/insertionmultiple')
+ 7 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Hatif\\Documents\\S4\\MrRojo\\Operateur\\Operateur\\public\\index.php')
+DEBUG - 2026-07-20 15:13:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:14:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 15:14:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 15:14:58 --> ErrorException: Trying to access array offset on null
+[Method: GET, Route: client/situation]
+in APPPATH\Views\Client\situation.php on line 11.
+ 1 APPPATH\Views\Client\situation.php(11): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on null', 'C:\\Users\\Hatif\\Documents\\S4\\MrRojo\\Operateur\\Operateur\\app\\Views\\Client\\situation.php', 11)
+ 2 SYSTEMPATH\View\View.php(240): include('C:\\Users\\Hatif\\Documents\\S4\\MrRojo\\Operateur\\Operateur\\app\\Views\\Client\\situation.php')
+ 3 SYSTEMPATH\View\View.php(243): CodeIgniter\View\View->{closure:CodeIgniter\View\View::render():237}()
+ 4 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('Client/situation', [], true)
+ 5 APPPATH\Controllers\ClientController.php(39): view('Client/situation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\ClientController->situation()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ClientController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('C:\\Users\\Hatif\\Documents\\S4\\MrRojo\\Operateur\\Operateur\\public\\index.php')

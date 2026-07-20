@@ -7,6 +7,13 @@
 <div class="card">
     <h2>Insertion multiple (même opérateur)</h2>
 
+    <p class="text-muted">
+        Le montant total est divisé équitablement entre tous les destinataires.
+        Si un destinataire appartient à un autre opérateur, une commission de 10%
+        sera automatiquement appliquée sur son envoi (le frais de retrait ne
+        s'applique alors pas pour ce destinataire).
+    </p>
+
     <form method="post" action="<?= base_url('client/operationmultiple') ?>" id="formInsertionMultiple" class="form-wide">
 
         <!-- Montant total -->

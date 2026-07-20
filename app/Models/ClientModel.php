@@ -161,4 +161,23 @@ class ClientModel extends Model
             ->getRowArray();
     }
 
+<<<<<<< HEAD
+    /**
+     * Détermine si deux clients appartiennent à des opérateurs différents
+     * (utilisé pour savoir si une commission de transfert doit s'appliquer).
+     */
+    public function isAutreOperateur($id_client, $id_destinataire)
+    {
+        $operateurExpediteur = $this->get_operateur($id_client);
+        $operateurDestinataire = $this->get_operateur($id_destinataire);
+
+        if (!$operateurExpediteur || !$operateurDestinataire) {
+            return false;
+        }
+
+        return $operateurExpediteur['operateur_id'] !== $operateurDestinataire['operateur_id'];
+    }
+
+=======
+>>>>>>> 1c428d50af3f31c4a0815e6dcc2c28fea6554f73
 }
