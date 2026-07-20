@@ -46,6 +46,7 @@ class TypeOperationModel extends Model
 
 public function getGainParType($id_type_operation, $date, $isAutreOperateur)
 {
+
     if ($isAutreOperateur) {
         return $this->db->table('historique h')
             ->select('COUNT(*) AS nombre, SUM(h.frais) AS gain')
@@ -65,7 +66,7 @@ public function getGainParType($id_type_operation, $date, $isAutreOperateur)
         ->get()
         ->getRowArray();
     }
-    }
+}
 
 
     public function getGainTotal($date,$isAutreOperateur)

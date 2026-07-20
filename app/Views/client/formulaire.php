@@ -63,7 +63,6 @@
             <div class="form-group">
                 <label>Type de transfert :</label>
 
-<<<<<<< HEAD
                 <label>
                     <input
                         type="radio"
@@ -90,8 +89,6 @@
                  serveur (qui détermine automatiquement la réalité). -->
             <input type="hidden" name="meme_operateur" id="meme_operateur" value="1">
 
-=======
->>>>>>> 1c428d50af3f31c4a0815e6dcc2c28fea6554f73
             <!-- Frais de retrait du destinataire inclus dans le montant envoyé : uniquement pour le même opérateur -->
             <div class="form-group" id="blocInclureFrais">
                 <label>
