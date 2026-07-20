@@ -18,7 +18,8 @@ class HistoriqueModel extends Model
         'id_type_operation',
         'montant',
         'date',
-        'frais'
+        'frais',
+        'commission'
     ];
 
 
@@ -73,7 +74,7 @@ class HistoriqueModel extends Model
         );
 
 
-        $montant = $montantsaisie - $frais;
+        $montant = $montantsaisie;
 
 
         return $this->insert([
@@ -115,7 +116,7 @@ class HistoriqueModel extends Model
         );
 
 
-        $montant = $montantsaisie - $frais;
+        $montant = $montantsaisie;
 
 
         return $this->insert([
@@ -130,26 +131,14 @@ class HistoriqueModel extends Model
 
 
 
-    /**
-     * Transfert
-     */
     public function transfert(
         $id_client,
         $id_destinataire,
-        $montantsaisie,
+        $montant,
+        $frais,
         $id_type_operation
     )
     {
-
-        $frais = $this->getFrais(
-            $id_type_operation,
-            $montantsaisie
-        );
-
-
-        $montant = $montantsaisie - $frais;
-
-
         return $this->insert([
             'id_client' => $id_client,
 
@@ -161,6 +150,19 @@ class HistoriqueModel extends Model
 
             'frais' => $frais
         ]);
+    }
+
+    public function calculerTransfert($montantsaisie, $fraisTransfert, $fraisRetrait, bool $inclureFraisRetrait)
+    {
+        $montant = $inclureFraisRetrait
+            ? ($montantsaisie + $fraisRetrait)
+            : $montantsaisie;
+
+        return [
+            'montant' => $montant,
+            'frais'   => $fraisTransfert,
+            'total'   => $montant + $fraisTransfert,
+        ];
     }
 
 }
