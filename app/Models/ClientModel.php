@@ -92,16 +92,13 @@ class ClientModel extends Model
             ->get()
             ->getRowArray();
 
-        // Montants reçus en tant que destinataire d'un transfert
-        $recu = $this->db->table('historique')
-            ->selectSum('montant')
-            ->where('id_destinataire', $id)
-            ->get()
-            ->getRowArray();
-
-        $data['recu'] = $recu['montant'] ?? 0;
-
-        $data['solde'] = ($data['depot'] ?? 0) - ($data['sortie'] ?? 0) + $data['recu'];
+        // NB : les transferts reçus sont déjà comptabilisés ci-dessus via
+        // la ligne "depot" créée par HistoriqueModel::recus() pour le
+        // destinataire. La colonne "id_destinataire" ne concerne que la
+        // ligne de l'expéditeur (pour savoir à qui il a envoyé l'argent) et
+        // ne doit donc pas être resommée ici, sous peine de compter deux
+        // fois le même transfert (avec en plus le mauvais signe).
+        $data['solde'] = ($data['depot'] ?? 0) - ($data['sortie'] ?? 0);
 
         return $data ;
     }

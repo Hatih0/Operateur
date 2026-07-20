@@ -10,7 +10,7 @@
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-label">Total gain</div>
-            <div class="stat-value"><?= $totalGain ?></div>
+            <div class="stat-value"><?= $totalGain ?> Ar</div>
         </div>
 
         <div class="stat-card">
@@ -25,7 +25,7 @@
 
         <div class="info-list">
             <p>Nombre : <strong><?= $val['nombre'] ?></strong></p>
-            <p>Gain : <strong><?= $val['gain'] ?></strong></p>
+            <p>Gain : <strong><?= $val['gain'] ?> Ar</strong></p>
         </div>
 
     <?php endforeach ?>
