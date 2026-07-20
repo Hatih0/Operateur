@@ -1,32 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <?php if (session()->get('success')) { ?>
-        <div class="alert alert-success">
-            <?= session()->get('success') ?>
-        </div>
-    <?php } elseif (session()->get('error')){ ?>
-        <div class="alert alert-danger">
-            <?= session()->get('error') ?>
-        </div>
-    <?php } ?>
+<?= $this->extend('templates/layout') ?>
 
-    <h1> Login Client </h1>
+<?= $this->section('title') ?>Connexion Client<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
+<div class="card">
+    <h1>Connexion Client</h1>
 
     <form action="/login" method="post">
-        <label for="Numero">Numero:</label>
-        <input type="text" name="Numero" id="Numero" required>
+        <div class="form-group">
+            <label for="Numero">Numéro :</label>
+            <input type="text" name="Numero" id="Numero" value="<?= isset($FirstClient['numero']) ? $FirstClient['numero'] : '' ?>" required>
+        </div>
 
-        <input type="submit" value="Se Connecter">
+        <button type="submit">Se connecter</button>
     </form>
 
-    <a href="/login_operateur"> Se connecter en tant qu'opérateur </a>
+    <p style="margin-top: 20px;">
+        <a href="/login_operateur">Se connecter en tant qu'opérateur</a>
+    </p>
+</div>
 
-</body>
-</html>
+<?= $this->endSection() ?>

@@ -23,7 +23,8 @@ class LoginController extends BaseController
 
     public function index()
     {
-        return view('Login/login_client');
+        $FirstClient = $this->clientModel->FirstClient();
+        return view('Login/login_client', ['FirstClient' => $FirstClient]);
     }
 
     public function validation ($numero) {
@@ -60,7 +61,8 @@ class LoginController extends BaseController
     }
 
     public function LoginOperateur() {
-        return view('Login/login_operateur');
+        $FirstOperateur = $this->operateurModel->FirstOperateur();
+        return view('Login/login_operateur', ['FirstOperateur' => $FirstOperateur]);
     }
 
     public function checkOperateur() {
@@ -77,6 +79,15 @@ class LoginController extends BaseController
         } else {
             return redirect()->to('/login_operateur')->with('error', 'Nom d\'utilisateur ou mot de passe incorrect.');
         }
+    }
+
+    public function logout() {
+        $isOperateur = session()->get('OperateurLoggedIn');
+
+        session()->destroy();
+
+        return redirect()->to($isOperateur ? '/login_operateur' : '/login_client')
+            ->with('success', 'Vous avez été déconnecté.');
     }
 
 }

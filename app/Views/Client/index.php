@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <h1> Welcome to the Client Home Page </h1>
+<?= $this->extend('templates/layout') ?>
 
-</body>
-</html>
+<?= $this->section('title') ?>Accueil Client<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
+<div class="card">
+    <h1>Bienvenue sur votre espace client</h1>
+</div>
+
+<?= $this->endSection() ?>
