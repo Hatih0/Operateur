@@ -94,6 +94,7 @@ class ClientController extends BaseController
         return view('Client/formulaire', $data);
     }
 
+    /* Aller vers formulaire d'insertion multiple */
     public function insertionMultiple()
     {
         $id = session()->get('client_id');
@@ -279,6 +280,7 @@ class ClientController extends BaseController
             ->with('success', 'Opération effectuée');
     }
 
+    /* Effectuer operation Multiple par post */
     public function operationMultiple()
     {
         $id_client = $this->request->getPost('id_client');

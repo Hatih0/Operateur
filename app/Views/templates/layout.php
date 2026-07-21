@@ -30,10 +30,35 @@
             <?php elseif (session()->get('ClientLoggedIn')) : ?>
 
                 <nav class="navbar-links">
-                    <a href="<?= base_url('client/situation') ?>" class="<?= str_starts_with($currentPath, 'client/situation') || str_starts_with($currentPath, 'client/formulaire') ? 'active' : '' ?>">Ma situation</a>
+                    <a href="<?= base_url('client/situation') ?>"
+                    class="<?= str_starts_with($currentPath, 'client/situation') ? 'active' : '' ?>">
+                        Ma situation
+                    </a>
+
+                    <a href="<?= base_url('client/formulaire/depot') ?>"
+                    class="<?= str_starts_with($currentPath, 'client/formulaire/depot') ? 'active' : '' ?>">
+                        Faire un dépôt
+                    </a>
+
+                    <a href="<?= base_url('client/formulaire/retrait') ?>"
+                    class="<?= str_starts_with($currentPath, 'client/formulaire/retrait') ? 'active' : '' ?>">
+                        Faire un retrait
+                    </a>
+
+                    <a href="<?= base_url('client/formulaire/transfert') ?>"
+                    class="<?= str_starts_with($currentPath, 'client/formulaire/transfert') ? 'active' : '' ?>">
+                        Transférer argent
+                    </a>
+
+                    <a href="<?= base_url('client/insertionmultiple') ?>"
+                    class="<?= str_starts_with($currentPath, 'client/insertionmultiple') ? 'active' : '' ?>">
+                        Insertion multiple
+                    </a>
                 </nav>
 
-                <a href="<?= base_url('logout') ?>" class="navbar-logout">Déconnexion</a>
+                <a href="<?= base_url('logout') ?>" class="navbar-logout">
+                    Déconnexion
+                </a>
 
             <?php endif; ?>
         </div>
