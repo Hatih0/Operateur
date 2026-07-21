@@ -53,7 +53,7 @@ class HistoriqueModel extends Model
             ->getRowArray();
 
         
-            if ($isAutreOperateur == false) {
+            if ($isAutreOperateur == false && $id_type_operation == 3) {
 
                 $promotionmodel = new PromotionModel () ;
                 $pourcentage = $promotionmodel->getPromotion()  ;
