@@ -253,7 +253,7 @@ class ClientController extends BaseController
                 $historiqueModel->transfert(
                     $id_client,
                     $destinataire['id'],
-                    $montant,
+                    $calcul['montant'],
                     $id_type_operation,
                     $isAutreOperateur
                 );
