@@ -50,7 +50,7 @@ public function getGainParType($id_type_operation, $date, $isAutreOperateur)
     if ($isAutreOperateur) {
         return $this->db->table('historique h')
             ->select('COUNT(*) AS nombre, SUM(h.frais) AS gain')
-            ->join('client c', 'c.id = h.id_client')
+            ->join('client c', 'c.id = h.id_destinataire')
             ->where('h.id_type_operation', $id_type_operation)
             ->where('c.operateur_id !=', 1)
             ->where('h.date <=', $date)
@@ -58,13 +58,13 @@ public function getGainParType($id_type_operation, $date, $isAutreOperateur)
             ->getRowArray();
     } else {
         return $this->db->table('historique h')
-        ->select('COUNT(*) AS nombre, SUM(h.frais) AS gain')
-        ->join('client c', 'c.id = h.id_client')
-        ->where('h.id_type_operation', $id_type_operation)
-        ->where('c.operateur_id', 1)
-        ->where('h.date <=', $date)
-        ->get()
-        ->getRowArray();
+            ->select('COUNT(*) AS nombre, SUM(h.frais) AS gain')
+            ->join('client c', 'c.id = h.id_client')
+            ->where('h.id_type_operation', $id_type_operation)
+            ->where('c.operateur_id', 1)
+            ->where('h.date <=', $date)
+            ->get()
+            ->getRowArray();
     }
 }
 
