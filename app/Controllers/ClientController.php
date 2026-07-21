@@ -364,8 +364,9 @@ class ClientController extends BaseController
                 $id_client,
                 $destinataire['id'],
                 $calcul['montant'],
-                $calcul['frais'],
-                $id_type_operation
+                // $calcul['frais'],
+                $id_type_operation,
+                false
             );
 
             $historiqueModel->recus(
