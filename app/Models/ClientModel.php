@@ -71,7 +71,7 @@ class ClientModel extends Model
                 SUM(
                     CASE
                         WHEN type_operation.libelle = 'depot'
-                        THEN montant
+                        THEN montant - frais
                         ELSE 0
                     END
                 ) AS depot,
