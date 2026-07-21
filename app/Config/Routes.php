@@ -56,3 +56,6 @@ $routes->get('/liste_operateur', 'OperateurController::listeOperateurs' , ['filt
 $routes->get('/operateur/situationAutreOperateur/(:num)', 'OperateurController::situationAutreOperateur/$1', ['filter' => 'authOperateur']);
 
 $routes->get('/promotion', 'ClientController::showPourcentage' );
+$routes->post('/insert_epargne', 'ClientController::insertEpargne');
+$routes->get('/insert-epargne', 'ClientController::viewEpargne');
+

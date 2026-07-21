@@ -53,4 +53,11 @@ CREATE Table prefixe (
 CREATE TABLE promotion (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     pourcentage REAL DEFAULT 0
+
+);
+
+CREATE TABLE epargne (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_client INTEGER NOT NULL,
+    pourcentage INTEGER NOT NULL
 );
