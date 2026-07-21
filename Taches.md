@@ -212,3 +212,14 @@
 - Situation des montants à envoyer à chaque opérateur
   - afficher tout les operateur
   - afficher les gains pour cette operateur
+
+
+## V3 - Promotion - Herman
+
+- **Promotion
+  - creer table pourcentage_promotion avec une seule ligne. (ok)
+  - creer model PromotionModel. getPromotion() (ok)
+  - regarder les methodes de transfert. Ajouter la logique de promotion dans ces methodes. (OK)
+  
+- **Modifier promotion.
+ 

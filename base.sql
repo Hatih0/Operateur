@@ -49,3 +49,8 @@ CREATE Table prefixe (
     operateur_id INTEGER NOT NULL,
     FOREIGN KEY (operateur_id) REFERENCES operateur(id)
 );
+
+CREATE TABLE promotion (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pourcentage REAL DEFAULT 0
+);

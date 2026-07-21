@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Models\ClientModel;
 use App\Models\ConfigurationModel;
+use App\Models\PromotionModel;
 use App\Controllers\BaseController;
+
 use CodeIgniter\HTTP\ResponseInterface;
 
 class ClientController extends BaseController
@@ -216,10 +218,10 @@ class ClientController extends BaseController
                 }
 
 
-                $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montant);
+                $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montant, $meme_operateur);
 
                 // Frais que destinataire sera chargee de payer
-                $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montant);
+                $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montant, false);
 
 
                 $inclureFraisRetraitEffectif = $meme_operateur && $inclure_frais_retrait;
@@ -341,8 +343,8 @@ class ClientController extends BaseController
 
         // Le montant étant divisé équitablement, le frais de transfert et le
         // frais de retrait du destinataire sont identiques pour chaque envoi.
-        $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montantParDestinataire);
-        $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montantParDestinataire);
+        $fraisTransfert = $historiqueModel->getFrais($id_type_operation, $montantParDestinataire,true);
+        $fraisRetraitDestinataire = $historiqueModel->getFrais(2, $montantParDestinataire,false);
 
         $calcul = $historiqueModel->calculerTransfert(
             $montantParDestinataire,
@@ -380,4 +382,12 @@ class ClientController extends BaseController
             ->to('/client/situation')
             ->with('success', 'Insertion multiple effectuée avec succès (' . $nombreDestinataires . ' destinataires).');
     }
+
+    public function showPourcentage () {
+        $promotionmodel = new PromotionModel ();
+        $prom = $promotionmodel->getPromotion();
+        return $this->response->setJSON ($prom);
+
+    }
 }
+

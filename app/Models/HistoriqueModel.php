@@ -43,7 +43,7 @@ class HistoriqueModel extends Model
     /**
      * Récupération des frais selon le montant
      */
-    public function getFrais($id_type_operation, $montant)
+    public function getFrais($id_type_operation, $montant,$isAutreOperateur = false)
     {
         $configuration = $this->db->table('configuration')
             ->where('id_type_operation', $id_type_operation)
@@ -52,6 +52,16 @@ class HistoriqueModel extends Model
             ->get()
             ->getRowArray();
 
+        
+            if ($isAutreOperateur == false) {
+
+                $promotionmodel = new PromotionModel () ;
+                $pourcentage = $promotionmodel->getPromotion()  ;
+                $pourcentage /= 100 ;
+                
+                $reduction = $configuration['montant'] * $pourcentage ;
+                $configuration['montant'] = $configuration['montant'] - $reduction ;
+            }
 
         if (!$configuration) {
             return 0;
@@ -70,7 +80,8 @@ class HistoriqueModel extends Model
     {
         $frais = $this->getFrais(
             $id_type_operation,
-            $montantsaisie
+            $montantsaisie,
+            false
         );
 
 
@@ -114,7 +125,8 @@ class HistoriqueModel extends Model
     {
         $frais = $this->getFrais(
             $id_type_operation,
-            $montantsaisie
+            $montantsaisie,
+            false
         );
 
 
@@ -157,16 +169,19 @@ class HistoriqueModel extends Model
 
         $frais = $this->getFrais(
             $id_type_operation,
-            $montantsaisie
+            $montantsaisie,
+            $isAutreOperateur
         );
 
 
         $montant = $montantsaisie;
         $commission = 0;
 
+        $pourcentage = 1 ;
+
         if ($isAutreOperateur) {
             $commission = $montant * 0.1;
-        }
+        } 
 
         return $this->insert([
             'id_client' => $id_client,
@@ -222,6 +237,7 @@ class HistoriqueModel extends Model
             ? round($montant * self::TAUX_COMMISSION_AUTRE_OPERATEUR, 2)
             : 0;
 
+        $pourcentage = 0 ;
         return [
             'montant'    => $montant,
             'frais'      => $fraisTransfert,
