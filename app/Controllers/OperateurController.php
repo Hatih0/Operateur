@@ -118,7 +118,7 @@ class OperateurController extends BaseController
         ];
 
 
-        return view('operateur/gain', $data);
+        return view('operateur/gainsAutreOp', $data);
     }
 
 
