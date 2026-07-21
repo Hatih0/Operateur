@@ -91,16 +91,19 @@ class HistoriqueModel extends Model
      * recus
      */
 
-    public function recus($id_client, $montantsaisie, $id_type_operation){
+    public function recus($id_client, $montantsaisie, $id_type_operation, $pourcentage){
 
         $frais = 0;
         $depot_id = 1;
+
+        $epargne = $montantsaisie * ($pourcentage['pourcentage'] / 100);
+        $montant = $montantsaisie - $epargne;
 
         return $this->insert([
             'id_client' => $id_client,
             'id_destinataire' => null,
             'id_type_operation' => $depot_id,
-            'montant' => $montantsaisie,
+            'montant' => $montant,
             'frais' => $frais,
             'commission' => 0
         ]);

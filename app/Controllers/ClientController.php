@@ -6,14 +6,17 @@ use App\Models\ClientModel;
 use App\Models\ConfigurationModel;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\EpargneModel;
 
 class ClientController extends BaseController
 {
 
     protected $clientModel;
+    protected $epargneModel;
 
     public function __construct()
     {
+        $this->epargneModel = new EpargneModel();
         $this->clientModel = new ClientModel();
     }
 
@@ -259,10 +262,18 @@ class ClientController extends BaseController
                     $isAutreOperateur
                 );
 
+                $poucentage_epargne = $this->epargneModel->findByidClient($destinataire['id']);
+
+                if (!$poucentage_epargne) {
+                    return redirect()->back()
+                        ->with('error', 'ce client n as pas d epargne');
+                }
+
                 $historiqueModel->recus(
                     $destinataire['id'],
                     $calcul['montant'],
-                    $id_type_operation
+                    $id_type_operation,
+                    $poucentage_epargne
                 );
 
                 break;
@@ -380,4 +391,27 @@ class ClientController extends BaseController
             ->to('/client/situation')
             ->with('success', 'Insertion multiple effectuée avec succès (' . $nombreDestinataires . ' destinataires).');
     }
+
+    public function insertEpargne () {
+
+        $poucentage = $this->request->getPost('pourcentage');
+        $id_client = session()->get('client_id');
+        $data = [
+            'id_client' => $id_client,
+            'pourcentage' => $poucentage
+        ];
+
+        $this->epargneModel->insert($data);
+        
+    return view('Client/situation');
+
+    }
+
+    public function viewEpargne() {
+
+        return view('Client/Epargne');
+
+    }
+
 }
+

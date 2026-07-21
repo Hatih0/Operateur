@@ -197,7 +197,6 @@
 | Consultation solde client          | Herman      |
 | Dépôt / retrait / transfert      | Herman      |
 
-
 ## V2 - Coté Operateur
 
 - **Configuration des préfixes valable pour les autres opérateurs  **  Fitahiana
@@ -212,3 +211,9 @@
 - Situation des montants à envoyer à chaque opérateur
   - afficher tout les operateur
   - afficher les gains pour cette operateur
+
+
+## V3 - 4111 - Epargne 
+- creer la table epargne (ok)
+- changer la logique dans le transfert si destinataire ,alors il recois montant - (montant - pourcentage_epargne) - (ok)
+- creer la page pour inserer une epargne pour un client (ok)

@@ -5,6 +5,8 @@
 <?= $this->section('content') ?>
 
 <div class="card">
+    <a href="/insert-epargne"> Inserer Epargne </a>
+
     <h2>Informations client</h2>
 
     <div class="info-list">

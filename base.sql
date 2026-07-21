@@ -49,3 +49,9 @@ CREATE Table prefixe (
     operateur_id INTEGER NOT NULL,
     FOREIGN KEY (operateur_id) REFERENCES operateur(id)
 );
+
+CREATE TABLE epargne (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_client INTEGER NOT NULL,
+    pourcentage INTEGER NOT NULL
+);
